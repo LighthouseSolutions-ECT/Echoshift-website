@@ -1,0 +1,49 @@
+/* EchoShift Website V0.4.5 — surgical mobile responsive repair only.
+   Protects the frozen V0.4.4 layout, hero, copy and visual assets. */
+
+@layer responsive {
+  @media (max-width: 600px) {
+    .capability-layout {
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .capability-layout > *,
+    .capability-visual,
+    .capability-list,
+    .capability-callout-legend,
+    .capability-visual picture,
+    .capability-visual figcaption {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .capability-visual,
+    .capability-list {
+      width: 100%;
+    }
+
+    .capability-visual picture {
+      width: 100%;
+      height: clamp(250px, 72vw, 310px);
+    }
+
+    .capability-visual picture img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .capability-callout-legend li,
+    .capability-list dt,
+    .capability-list dd {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .capability-visual picture {
+      height: clamp(238px, 70vw, 274px);
+    }
+  }
+}

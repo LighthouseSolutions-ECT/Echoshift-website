@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-label="Sustained evidence accumulates gradually into a calm advisory">
+  <rect x="1" y="1" width="358" height="148" rx="18" fill="#0d1b2e" stroke="#294568"/>
+  <path d="M28 123H251M28 123V26" stroke="#294568" stroke-width="2"/>
+  <path d="M36 116 C65 112 79 104 99 98 S133 86 151 76 S184 64 202 52 S229 38 246 27" fill="none" stroke="#D4A037" stroke-width="4" stroke-linecap="round"/>
+  <g fill="#6B88AD"><circle cx="58" cy="110" r="5"/><circle cx="91" cy="101" r="5"/><circle cx="124" cy="88" r="5"/><circle cx="157" cy="73" r="5"/><circle cx="190" cy="60" r="5"/><circle cx="222" cy="43" r="5"/></g>
+  <path d="M265 27v96" stroke="#294568" stroke-width="2" stroke-dasharray="5 6"/>
+  <circle cx="304" cy="75" r="29" fill="none" stroke="#D4A037" stroke-width="4"/>
+  <path d="m290 75 10 10 19-23" fill="none" stroke="#d8e4ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,1865 @@
+/*
+ * EchoShift hero machine demonstration — V0.4
+ * Approved six-stage storyboard implementation — production timing, legibility and industrial-context refinement.
+ * This file deliberately layers over the frozen V0.1 structural baseline.
+ */
+
+.hero .shell {
+  width: var(--shell-wide);
+}
+
+.hero__layout {
+  grid-template-columns: minmax(390px, .72fr) minmax(630px, 1.28fr);
+  gap: clamp(2.6rem, 4.2vw, 5.2rem);
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 4;
+}
+
+.hero-machine-demo {
+  isolation: isolate;
+  border-color: rgba(107, 136, 173, .32);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 55% 46%, rgba(54, 88, 126, .22), transparent 46%),
+    linear-gradient(145deg, rgba(12, 29, 51, .96), rgba(5, 15, 28, .985));
+  box-shadow:
+    0 42px 120px rgba(0, 5, 14, .62),
+    inset 0 1px 0 rgba(255, 255, 255, .04);
+}
+
+.hero-machine-demo::before {
+  opacity: .7;
+  background:
+    linear-gradient(118deg, transparent 16%, rgba(255, 255, 255, .035) 42%, transparent 61%),
+    radial-gradient(circle at 82% 20%, rgba(212, 160, 55, .06), transparent 28%);
+}
+
+.hero-demo__header {
+  position: relative;
+  z-index: 30;
+  min-height: 52px;
+  align-items: center;
+  padding: .72rem .9rem;
+  background: rgba(4, 13, 25, .52);
+  backdrop-filter: blur(14px);
+}
+
+.hero-demo__phase-title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: .72rem;
+  color: var(--white);
+  transition: opacity .2s ease, transform .28s var(--ease-standard);
+}
+
+.hero-demo__phase-title > span {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(212, 160, 55, .75);
+  border-radius: 6px;
+  color: var(--white);
+  font: 600 .67rem/1 var(--font-mono);
+  box-shadow: 0 0 22px rgba(212, 160, 55, .08);
+}
+
+.hero-demo__phase-title strong {
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: .78rem;
+  font-weight: 550;
+  letter-spacing: -.01em;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.hero-demo__controls {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.hero-demo__state {
+  margin-right: .15rem;
+  color: #7890a8;
+  font-size: .52rem;
+  letter-spacing: .07em;
+  white-space: nowrap;
+}
+
+.hero-demo__control {
+  min-height: 28px;
+  padding: .25rem .62rem;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 999px;
+  color: #b7c7d8;
+  background: rgba(255, 255, 255, .025);
+  font: 500 .55rem/1 var(--font-mono);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.hero-demo__control:hover {
+  color: var(--white);
+  border-color: rgba(212, 160, 55, .55);
+  background: rgba(212, 160, 55, .06);
+}
+
+.hero-demo__viewport {
+  min-height: 610px;
+  background:
+    radial-gradient(circle at 50% 54%, rgba(49, 81, 117, .15), transparent 47%),
+    linear-gradient(to bottom, rgba(7, 20, 37, .28), rgba(3, 11, 22, .3));
+}
+
+.hero-demo__viewport::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, .025), transparent 16%),
+    radial-gradient(ellipse at 50% 103%, rgba(107, 136, 173, .14), transparent 45%);
+}
+
+.hero-demo__grid {
+  opacity: .34;
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 52% 53%, black 0 44%, transparent 82%);
+}
+
+.hero-demo__factory {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 15, 28, .68), transparent 25%, transparent 67%, rgba(5, 15, 28, .2)),
+    url("../img/industrial-noise-bg.jpg") center / cover no-repeat;
+  clip-path: inset(8% 43% 8% 43% round 26px);
+  filter: saturate(.48) contrast(1.02) brightness(.5) blur(7px);
+  transform: scale(1.085);
+  transition:
+    opacity 1.3s var(--ease-standard),
+    transform 1.65s var(--ease-standard),
+    filter 1.45s ease,
+    clip-path 1.55s var(--ease-standard);
+}
+
+.hero-demo__factory::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 53% 50%, transparent 17%, rgba(4, 13, 25, .24) 68%, rgba(4, 13, 25, .72)),
+    linear-gradient(to bottom, rgba(4, 13, 25, .04), rgba(4, 13, 25, .42));
+}
+
+.hero-demo__ambient {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+
+.hero-demo__ambient span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(171, 198, 224, .7);
+  box-shadow: 0 0 18px rgba(171, 198, 224, .45);
+  animation: ambient-drift 4.6s linear infinite;
+}
+
+.hero-demo__ambient span:nth-child(1) { top: 20%; left: 8%; animation-delay: -.8s; }
+.hero-demo__ambient span:nth-child(2) { top: 34%; left: 18%; animation-delay: -2.5s; animation-duration: 6.1s; }
+.hero-demo__ambient span:nth-child(3) { top: 18%; right: 10%; animation-delay: -1.6s; animation-duration: 5.4s; }
+.hero-demo__ambient span:nth-child(4) { top: 56%; right: 14%; animation-delay: -3.4s; }
+.hero-demo__ambient span:nth-child(5) { top: 70%; left: 13%; animation-delay: -4.2s; animation-duration: 7s; }
+.hero-demo__ambient span:nth-child(6) { top: 45%; right: 30%; animation-delay: -.3s; animation-duration: 5.8s; }
+
+.hero-demo__chapter {
+  position: absolute;
+  z-index: 32;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  width: min(390px, calc(100% - 48px));
+  align-items: center;
+  gap: .85rem;
+  padding: .82rem 1rem .84rem .86rem;
+  border: 1px solid rgba(107, 136, 173, .28);
+  border-left: 2px solid var(--signal-gold);
+  border-radius: 9px;
+  opacity: 0;
+  color: var(--white);
+  background: linear-gradient(110deg, rgba(4, 14, 27, .9), rgba(7, 21, 38, .72));
+  box-shadow: 0 20px 48px rgba(0, 5, 14, .3);
+  backdrop-filter: blur(16px) saturate(125%);
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.hero-demo__chapter-number {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(212, 160, 55, .78);
+  border-radius: 7px;
+  color: var(--white);
+  background: rgba(212, 160, 55, .055);
+  font: 600 .7rem/1 var(--font-mono);
+  box-shadow: 0 0 24px rgba(212, 160, 55, .08);
+}
+
+.hero-demo__chapter-copy {
+  display: grid;
+  min-width: 0;
+  gap: .08rem;
+}
+
+.hero-demo__chapter-copy small {
+  color: #8097ad;
+  font: 500 .48rem/1.2 var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.hero-demo__chapter-copy strong {
+  overflow: hidden;
+  color: var(--white);
+  font-size: .92rem;
+  font-weight: 550;
+  line-height: 1.2;
+  letter-spacing: -.018em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-machine-demo.is-announcing .hero-demo__chapter {
+  animation: chapter-arrive 2.05s var(--ease-standard) both;
+}
+
+.hero-demo__disturbance-sources {
+  position: absolute;
+  z-index: 12;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .55s ease;
+}
+
+.disturbance-source {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .38rem .52rem;
+  border: 1px solid rgba(148, 177, 204, .2);
+  border-radius: 999px;
+  color: #bac9d7;
+  background: rgba(4, 14, 27, .66);
+  box-shadow: 0 12px 28px rgba(0, 5, 14, .24);
+  backdrop-filter: blur(10px);
+  font: 500 .47rem/1 var(--font-mono);
+  letter-spacing: .025em;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .45s ease, transform .55s var(--ease-standard);
+}
+
+.disturbance-source i {
+  position: relative;
+  display: block;
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border: 1px solid #a7bed2;
+  border-radius: 50%;
+  background: rgba(167, 190, 210, .25);
+  box-shadow: 0 0 14px rgba(167, 190, 210, .4);
+}
+
+.disturbance-source i::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(167, 190, 210, .36);
+  border-radius: 50%;
+  animation: disturbance-pulse 1.85s ease-out infinite;
+}
+
+.disturbance-source--equipment { top: 18%; left: 5%; }
+.disturbance-source--structure { bottom: 18%; left: 6%; }
+.disturbance-source--load { top: 20%; right: 5%; }
+
+.hero-demo__floor-wave {
+  position: absolute;
+  z-index: 5;
+  right: -2%;
+  bottom: 8%;
+  left: -2%;
+  width: 104%;
+  height: 86px;
+  opacity: 0;
+  filter: drop-shadow(0 0 9px rgba(135, 166, 194, .26));
+  transition: opacity .65s ease, transform 1.1s var(--ease-standard);
+  transform: translateY(12px);
+}
+
+.hero-demo__floor-wave path {
+  fill: none;
+  stroke: rgba(151, 181, 207, .58);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 10;
+  vector-effect: non-scaling-stroke;
+  animation: floor-wave 3.1s linear infinite;
+}
+
+.hero-demo__noise-wave {
+  position: absolute;
+  z-index: 3;
+  top: 36%;
+  width: 48%;
+  height: 150px;
+  overflow: visible;
+  opacity: 0;
+  filter: drop-shadow(0 0 7px rgba(123, 159, 192, .32));
+  transition: opacity .65s ease, transform .9s var(--ease-standard);
+}
+
+.hero-demo__noise-wave--left { left: -8%; transform: translateX(-35px); }
+.hero-demo__noise-wave--right { right: -8%; transform: translateX(35px) scaleX(-1); }
+
+.hero-demo__noise-wave path {
+  fill: none;
+  stroke: rgba(148, 177, 204, .7);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 8 9;
+  animation: noise-dash 2.8s linear infinite;
+}
+
+.hero-demo__machine {
+  position: absolute;
+  z-index: 8;
+  top: 48%;
+  left: 52%;
+  width: min(88%, 720px);
+  aspect-ratio: 1.76;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 70%;
+  transition:
+    top 1.05s var(--ease-standard),
+    left 1.05s var(--ease-standard),
+    width 1.05s var(--ease-standard),
+    opacity .75s ease,
+    filter .75s ease;
+}
+
+.hero-demo__motor {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter:
+    contrast(1.08)
+    saturate(.85)
+    brightness(1.08)
+    drop-shadow(0 25px 32px rgba(0, 0, 0, .48))
+    drop-shadow(0 0 22px rgba(89, 128, 166, .12));
+  opacity: 1;
+  mask-image: radial-gradient(ellipse at 50% 52%, black 0 69%, transparent 91%);
+  animation: motor-reveal 1.35s var(--ease-standard) both;
+}
+
+.hero-demo__motor-glow {
+  position: absolute;
+  z-index: 1;
+  inset: 17% 10% 5%;
+  border-radius: 50%;
+  opacity: .28;
+  background: radial-gradient(ellipse, rgba(75, 118, 157, .22), transparent 66%);
+  filter: blur(22px);
+  transition: opacity .7s ease, background .7s ease;
+}
+
+.hero-demo__scan {
+  position: absolute;
+  z-index: 7;
+  top: 8%;
+  bottom: 8%;
+  left: 8%;
+  width: 2px;
+  opacity: .8;
+  background: linear-gradient(to bottom, transparent, rgba(212, 160, 55, .75), transparent);
+  box-shadow: 0 0 16px rgba(212, 160, 55, .36);
+  animation: machine-scan 1.45s .12s var(--ease-standard) both;
+}
+
+.hero-demo__machine-baseline {
+  position: absolute;
+  z-index: 2;
+  left: 8%;
+  right: 6%;
+  bottom: 3.5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(107, 136, 173, .45), rgba(212, 160, 55, .42), transparent);
+  box-shadow: 0 0 18px rgba(107, 136, 173, .15);
+}
+
+.hero-demo__shaft-rings {
+  position: absolute;
+  z-index: 9;
+  left: 5.7%;
+  top: 50.8%;
+  width: 16%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.hero-demo__shaft-rings i {
+  position: absolute;
+  inset: 28%;
+  border: 1px solid rgba(212, 160, 55, .88);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(212, 160, 55, .15);
+  animation: shaft-pulse 1.8s ease-out infinite;
+}
+
+.hero-demo__shaft-rings i:nth-child(2) { animation-delay: .55s; }
+.hero-demo__shaft-rings i:nth-child(3) { animation-delay: 1.1s; }
+
+.hero-demo__sensor-layer {
+  position: absolute;
+  z-index: 13;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sensor-point {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .54rem;
+  opacity: 0;
+  color: #d5e0ea;
+  font: 500 .55rem/1.35 var(--font-mono);
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .55s var(--ease-standard);
+}
+
+.sensor-point > i {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border: 2px solid var(--signal-gold);
+  border-radius: 50%;
+  background: rgba(212, 160, 55, .18);
+  box-shadow: 0 0 0 5px rgba(212, 160, 55, .07), 0 0 18px rgba(212, 160, 55, .35);
+}
+
+.sensor-point > i::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212, 160, 55, .65), transparent);
+}
+
+.sensor-point span {
+  display: grid;
+  min-width: max-content;
+  color: #9db0c3;
+}
+
+.sensor-point strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.sensor-point--de-x { top: 36%; left: 8%; flex-direction: row-reverse; text-align: right; }
+.sensor-point--de-y { top: 49%; left: 23%; flex-direction: row-reverse; text-align: right; }
+.sensor-point--nde-x { top: 33%; right: 7%; }
+.sensor-point--nde-y { top: 48%; right: 11%; }
+.sensor-point--environment { right: 9%; bottom: 18%; }
+.sensor-point--de-x > i::after,
+.sensor-point--de-y > i::after { right: 100%; transform: rotate(180deg); }
+.sensor-point--nde-x > i::after,
+.sensor-point--nde-y > i::after,
+.sensor-point--environment > i::after { left: 100%; }
+
+.hero-demo__filter-flow {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .55s ease;
+}
+
+.filter-flow {
+  position: absolute;
+  left: 17%;
+  top: 50%;
+  width: 28%;
+  height: 1px;
+  transform-origin: right center;
+  background: linear-gradient(90deg, transparent, rgba(212, 160, 55, .65));
+  filter: drop-shadow(0 0 5px rgba(212, 160, 55, .3));
+}
+
+.filter-flow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--signal-gold);
+  box-shadow: 0 0 10px rgba(212, 160, 55, .65);
+  animation: flow-dot 1.4s linear infinite;
+}
+
+.filter-flow--one { transform: rotate(-11deg); }
+.filter-flow--two { transform: rotate(1deg); }
+.filter-flow--three { transform: rotate(13deg); }
+.filter-flow--two::after { animation-delay: -.45s; }
+.filter-flow--three::after { animation-delay: -.9s; }
+
+.hero-demo__filter-card,
+.analysis-card,
+.hero-demo__advisory {
+  border: 1px solid rgba(107, 136, 173, .25);
+  background: rgba(4, 14, 27, .82);
+  box-shadow: 0 18px 45px rgba(0, 5, 14, .24);
+  backdrop-filter: blur(13px);
+}
+
+.hero-demo__filter-card {
+  position: absolute;
+  z-index: 18;
+  top: 17%;
+  width: 27%;
+  min-height: 130px;
+  padding: .72rem .78rem;
+  border-radius: 9px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .55s ease, transform .65s var(--ease-standard);
+}
+
+.hero-demo__filter-card--noise { left: 2.5%; }
+.hero-demo__filter-card--retained { right: 2.5%; }
+
+.hero-demo__filter-card > span,
+.analysis-card > span {
+  display: block;
+  color: #8aa0b5;
+  font: 500 .5rem/1.25 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.hero-demo__filter-card > strong {
+  display: block;
+  margin-top: .12rem;
+  color: var(--white);
+  font-size: .66rem;
+  line-height: 1.25;
+}
+
+.hero-demo__filter-card small {
+  display: block;
+  color: #7f94a9;
+  font: 400 .47rem/1.3 var(--font-mono);
+}
+
+.hero-demo__filter-card svg {
+  width: 100%;
+  height: 54px;
+  margin: .35rem 0 .15rem;
+}
+
+.hero-demo__filter-card svg path {
+  fill: none;
+  stroke: rgba(142, 166, 189, .55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.spectrum-bars {
+  display: flex;
+  align-items: end;
+  gap: 9%;
+  height: 52px;
+  margin: .46rem .2rem .2rem;
+  border-bottom: 1px solid rgba(107, 136, 173, .16);
+}
+
+.spectrum-bars i {
+  display: block;
+  width: 2px;
+  height: 11%;
+  background: #65809a;
+}
+
+.spectrum-bars i:nth-child(2) { height: 82%; background: var(--signal-gold); }
+.spectrum-bars i:nth-child(3) { height: 18%; }
+.spectrum-bars i:nth-child(4) { height: 52%; background: rgba(212, 160, 55, .82); }
+.spectrum-bars i:nth-child(5) { height: 12%; }
+.spectrum-bars i:nth-child(6) { height: 31%; background: rgba(212, 160, 55, .72); }
+.spectrum-bars i:nth-child(7) { height: 8%; }
+
+.hero-demo__analysis-stack {
+  position: absolute;
+  z-index: 20;
+  top: 13%;
+  left: 3%;
+  display: grid;
+  width: 35%;
+  gap: .5rem;
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity .6s ease, transform .72s var(--ease-standard);
+}
+
+.analysis-card {
+  overflow: hidden;
+  padding: .62rem .7rem;
+  border-radius: 8px;
+}
+
+.analysis-card--trend svg {
+  width: 100%;
+  height: 58px;
+  margin-top: .25rem;
+}
+
+.analysis-grid {
+  fill: none;
+  stroke: rgba(107, 136, 173, .17);
+  stroke-width: 1;
+}
+
+.analysis-line {
+  fill: none;
+  stroke: var(--signal-gold);
+  stroke-width: 1.7;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+
+.analysis-card--agreement {
+  display: grid;
+  gap: .27rem;
+}
+
+.analysis-card--agreement > span { margin-bottom: .2rem; }
+
+.analysis-card--agreement > div {
+  display: grid;
+  grid-template-columns: 35px 1fr 14px;
+  align-items: center;
+  gap: .35rem;
+  color: #8ca0b5;
+  font: 500 .48rem/1 var(--font-mono);
+}
+
+.analysis-card--agreement b { font-weight: 500; }
+.analysis-card--agreement i,
+.analysis-confidence > i {
+  position: relative;
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(107, 136, 173, .22);
+}
+
+.analysis-card--agreement em,
+.analysis-confidence em {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--signal-gold);
+}
+
+.analysis-card--agreement > div > strong {
+  display: grid;
+  width: 12px;
+  height: 12px;
+  place-items: center;
+  border-radius: 50%;
+  color: #171207;
+  background: var(--signal-gold);
+  font: 800 .43rem/1 var(--font-display);
+  opacity: 0;
+}
+
+.analysis-confidence {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .55rem;
+}
+
+.analysis-confidence strong {
+  color: var(--signal-gold);
+  font: 600 .7rem/1 var(--font-mono);
+}
+
+.hero-demo__advisory {
+  position: absolute;
+  z-index: 24;
+  top: 13%;
+  left: 3%;
+  width: 47%;
+  min-height: 372px;
+  padding: 1.05rem 1.15rem 1rem;
+  border-color: rgba(212, 160, 55, .75);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateX(-18px) scale(.98);
+  box-shadow:
+    0 28px 70px rgba(0, 5, 14, .45),
+    inset 0 0 0 1px rgba(212, 160, 55, .08),
+    0 0 30px rgba(212, 160, 55, .055);
+  transition: opacity .68s ease, transform .75s var(--ease-standard);
+}
+
+.hero-demo__advisory-mark {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-bottom: .72rem;
+}
+
+.hero-demo__advisory-mark i {
+  position: absolute;
+  inset: 4px;
+  border: 2px solid var(--signal-gold);
+  border-radius: 50%;
+}
+
+.hero-demo__advisory-mark i:nth-child(2) { inset: 11px; }
+.hero-demo__advisory-mark i:nth-child(3) { inset: 18px; background: var(--signal-gold); }
+
+.hero-demo__advisory p {
+  color: var(--signal-gold);
+  font: 500 .58rem/1.25 var(--font-mono);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.hero-demo__advisory h2 {
+  max-width: 12ch;
+  margin-top: .18rem;
+  color: var(--signal-gold);
+  font-size: 1.05rem;
+  line-height: 1.14;
+  letter-spacing: -.02em;
+}
+
+.hero-demo__confidence {
+  display: block;
+  margin-top: .75rem;
+  color: var(--signal-gold);
+  font: 600 2.55rem/.95 var(--font-display);
+  letter-spacing: -.05em;
+}
+
+.hero-demo__confidence span { font-size: 1.2rem; }
+
+.hero-demo__confidence-label {
+  display: block;
+  margin-top: .2rem;
+  color: #b2c1ce;
+  font: 500 .58rem/1 var(--font-mono);
+}
+
+.hero-demo__advisory ul {
+  display: grid;
+  gap: .48rem;
+  margin-top: .95rem;
+  list-style: none;
+  color: #d0d9e2;
+  font-size: .58rem;
+}
+
+.hero-demo__advisory li::before {
+  content: "✓";
+  display: inline-grid;
+  width: 13px;
+  height: 13px;
+  margin-right: .46rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #171207;
+  background: var(--signal-gold);
+  font-size: .47rem;
+  font-weight: 900;
+}
+
+.hero-demo__advisory footer {
+  position: absolute;
+  right: 1rem;
+  bottom: .7rem;
+  left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .55rem;
+  padding-top: .55rem;
+  border-top: 1px solid rgba(212, 160, 55, .16);
+  color: #a9853e;
+  font: 500 .48rem/1 var(--font-mono);
+}
+
+.hero-demo__advisory footer i {
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--signal-gold);
+}
+
+.hero-demo__caption {
+  position: absolute;
+  z-index: 28;
+  right: 31%;
+  bottom: 24px;
+  left: 3%;
+  display: grid;
+  gap: .06rem;
+  min-height: 36px;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .28s var(--ease-standard);
+}
+
+.hero-machine-demo.is-content-refreshing .hero-demo__phase-title,
+.hero-machine-demo.is-content-refreshing .hero-demo__caption {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.hero-demo__caption p {
+  color: #d4dee8;
+  font-size: .67rem;
+  line-height: 1.3;
+}
+
+.hero-demo__caption span {
+  color: #7e94aa;
+  font: 400 .52rem/1.3 var(--font-mono);
+}
+
+.hero-demo__steps {
+  position: absolute;
+  z-index: 29;
+  right: 3%;
+  bottom: 22px;
+  display: flex;
+  gap: .34rem;
+  list-style: none;
+}
+
+.hero-demo__steps button {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(107, 136, 173, .24);
+  border-radius: 5px;
+  color: #7f94aa;
+  background: rgba(3, 12, 23, .62);
+  font: 600 .52rem/1 var(--font-mono);
+  cursor: pointer;
+  transition: color .25s ease, border-color .25s ease, background .25s ease, transform .25s ease;
+}
+
+.hero-demo__steps button:hover {
+  color: var(--white);
+  border-color: rgba(212, 160, 55, .48);
+  transform: translateY(-2px);
+}
+
+.hero-demo__steps .is-active button {
+  color: var(--white);
+  border-color: var(--signal-gold);
+  background: rgba(212, 160, 55, .1);
+  box-shadow: 0 0 18px rgba(212, 160, 55, .08);
+}
+
+.hero-demo__footer {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  min-height: 50px;
+  padding: .72rem .9rem;
+  background: rgba(4, 13, 25, .58);
+  backdrop-filter: blur(14px);
+}
+
+.hero-demo__footer span {
+  position: relative;
+  display: block;
+  padding-inline: 1rem;
+  color: #8499ad;
+  font-size: .48rem;
+  text-align: center;
+}
+
+.hero-demo__footer span + span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 18px;
+  background: rgba(107, 136, 173, .22);
+  transform: translateY(-50%);
+}
+
+/* Phase 1 — clear digital twin */
+.hero-machine-demo[data-phase="1"] .hero-demo__machine {
+  top: 48%;
+  left: 52%;
+  width: min(88%, 720px);
+}
+
+/* Phase 2 — sensing locations */
+.hero-machine-demo[data-phase="2"] .sensor-point {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-machine-demo[data-phase="2"] .sensor-point:nth-child(1) { transition-delay: .38s; }
+.hero-machine-demo[data-phase="2"] .sensor-point:nth-child(2) { transition-delay: .54s; }
+.hero-machine-demo[data-phase="2"] .sensor-point:nth-child(3) { transition-delay: .70s; }
+.hero-machine-demo[data-phase="2"] .sensor-point:nth-child(4) { transition-delay: .86s; }
+.hero-machine-demo[data-phase="2"] .sensor-point:nth-child(5) { transition-delay: 1.02s; }
+
+/* Phase 3 — surrounding noise resolves around the monitored machine. */
+.hero-machine-demo[data-phase="3"] .hero-demo__factory {
+  opacity: .88;
+  clip-path: inset(0 0 0 0 round 0);
+  filter: saturate(.72) contrast(1.1) brightness(.92) blur(0);
+  transform: scale(1);
+  transition-delay: .24s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__ambient {
+  opacity: .96;
+  transition-delay: .72s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__noise-wave {
+  opacity: 1;
+  transition-delay: .82s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__noise-wave--left { transform: translateX(0); }
+.hero-machine-demo[data-phase="3"] .hero-demo__noise-wave--right { transform: translateX(0) scaleX(-1); }
+
+.hero-machine-demo[data-phase="3"] .hero-demo__floor-wave {
+  opacity: .86;
+  transform: translateY(0);
+  transition-delay: 1.02s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__disturbance-sources {
+  opacity: 1;
+  transition-delay: .86s;
+}
+
+.hero-machine-demo[data-phase="3"] .disturbance-source {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-machine-demo[data-phase="3"] .disturbance-source--equipment { transition-delay: .95s; }
+.hero-machine-demo[data-phase="3"] .disturbance-source--structure { transition-delay: 1.18s; }
+.hero-machine-demo[data-phase="3"] .disturbance-source--load { transition-delay: 1.41s; }
+
+.hero-machine-demo[data-phase="3"] .sensor-point {
+  opacity: .7;
+  transform: translateY(0);
+}
+
+.hero-machine-demo[data-phase="3"] .sensor-point--environment > i {
+  animation: environmental-reference 1.55s ease-in-out infinite;
+}
+
+/* Phase 4 retains context, but visibly quietens disturbance as evidence is separated. */
+.hero-machine-demo[data-phase="4"] .hero-demo__factory {
+  opacity: .32;
+  clip-path: inset(0 0 0 0 round 0);
+  filter: saturate(.48) contrast(1.04) brightness(.62) blur(0);
+  transform: scale(1);
+}
+
+.hero-machine-demo[data-phase="4"] .hero-demo__ambient { opacity: .2; }
+.hero-machine-demo[data-phase="4"] .hero-demo__noise-wave { opacity: .16; }
+.hero-machine-demo[data-phase="4"] .hero-demo__noise-wave--left { transform: translateX(0); }
+.hero-machine-demo[data-phase="4"] .hero-demo__noise-wave--right { transform: translateX(0) scaleX(-1); }
+.hero-machine-demo[data-phase="4"] .hero-demo__floor-wave { opacity: .12; transform: translateY(0); }
+
+/* Phase 4 — retain machine evidence */
+.hero-machine-demo[data-phase="4"] .hero-demo__machine {
+  top: 54%;
+  left: 50%;
+  width: min(62%, 500px);
+}
+
+.hero-machine-demo[data-phase="4"] .hero-demo__motor-glow {
+  opacity: .5;
+  background: radial-gradient(ellipse, rgba(212, 160, 55, .16), transparent 64%);
+}
+
+.hero-machine-demo[data-phase="4"] .hero-demo__filter-flow,
+.hero-machine-demo[data-phase="4"] .hero-demo__filter-card {
+  opacity: 1;
+  transition-delay: .48s;
+}
+
+.hero-machine-demo[data-phase="4"] .hero-demo__filter-card {
+  transform: translateY(0);
+}
+
+.hero-machine-demo[data-phase="4"] .hero-demo__filter-card--retained {
+  transition-delay: .12s;
+}
+
+.hero-machine-demo[data-phase="4"] .sensor-point {
+  opacity: 0;
+}
+
+/* Phase 5 — evidence grows */
+.hero-machine-demo[data-phase="5"] .hero-demo__factory {
+  opacity: .07;
+  clip-path: inset(0 0 0 0 round 0);
+  filter: saturate(.42) contrast(1.02) brightness(.52) blur(0);
+  transform: scale(1);
+}
+
+.hero-machine-demo[data-phase="5"] .hero-demo__machine {
+  top: 53%;
+  left: 69%;
+  width: min(59%, 500px);
+}
+
+.hero-machine-demo[data-phase="5"] .hero-demo__shaft-rings,
+.hero-machine-demo[data-phase="6"] .hero-demo__shaft-rings {
+  opacity: 1;
+}
+
+.hero-machine-demo[data-phase="5"] .hero-demo__analysis-stack {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: .42s;
+}
+
+.hero-machine-demo[data-phase="5"] .analysis-line {
+  animation: draw-evidence 1.15s .18s var(--ease-standard) forwards;
+}
+
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement em {
+  animation: fill-agreement .75s var(--ease-standard) forwards;
+}
+
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(2) em,
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(2) strong { animation-delay: .12s; }
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(3) em,
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(3) strong { animation-delay: .24s; }
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(4) em,
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div:nth-of-type(4) strong { animation-delay: .36s; }
+
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement > div > strong {
+  animation: reveal-check .32s .7s ease forwards;
+}
+
+.hero-machine-demo[data-phase="5"] .analysis-confidence em {
+  animation: fill-confidence 1.05s .45s var(--ease-standard) forwards;
+}
+
+/* Phase 6 — advisory */
+.hero-machine-demo[data-phase="6"] .hero-demo__machine {
+  top: 54%;
+  left: 76%;
+  width: min(52%, 440px);
+  opacity: .9;
+  filter: saturate(.88) brightness(.92);
+}
+
+.hero-machine-demo[data-phase="6"] .hero-demo__advisory {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition-delay: .34s;
+}
+
+.hero-machine-demo[data-phase="6"] .hero-demo__factory {
+  opacity: .1;
+  clip-path: inset(0 0 0 0 round 0);
+  filter: saturate(.38) contrast(1.02) brightness(.48) blur(0);
+  transform: scale(1);
+}
+
+.hero-machine-demo[data-phase="6"] .hero-demo__motor-glow {
+  opacity: .55;
+  background: radial-gradient(ellipse, rgba(212, 160, 55, .18), transparent 65%);
+}
+
+@keyframes chapter-arrive {
+  0% { opacity: 0; transform: translateY(12px); }
+  13% { opacity: 1; transform: translateY(0); }
+  72% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-7px); }
+}
+
+@keyframes disturbance-pulse {
+  0% { transform: scale(.55); opacity: .72; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes floor-wave { to { stroke-dashoffset: -45; } }
+
+@keyframes environmental-reference {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(212, 160, 55, .07), 0 0 18px rgba(212, 160, 55, .3); }
+  50% { box-shadow: 0 0 0 10px rgba(212, 160, 55, .04), 0 0 26px rgba(212, 160, 55, .6); }
+}
+
+@keyframes motor-reveal {
+  0% { opacity: 0; filter: contrast(1.08) saturate(.8) brightness(.45) blur(5px); clip-path: inset(0 100% 0 0); }
+  45% { opacity: .82; }
+  100% { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes machine-scan {
+  0% { left: 8%; opacity: 0; }
+  14% { opacity: .85; }
+  85% { opacity: .75; }
+  100% { left: 91%; opacity: 0; }
+}
+
+@keyframes shaft-pulse {
+  0% { inset: 36%; opacity: .82; }
+  100% { inset: 0; opacity: 0; }
+}
+
+@keyframes ambient-drift {
+  0% { transform: translate3d(-10px, 10px, 0) scale(.7); opacity: 0; }
+  22% { opacity: .8; }
+  100% { transform: translate3d(130px, -50px, 0) scale(1.3); opacity: 0; }
+}
+
+@keyframes noise-dash { to { stroke-dashoffset: -34; } }
+
+@keyframes flow-dot {
+  0% { right: 100%; opacity: 0; }
+  18% { opacity: 1; }
+  100% { right: 0; opacity: .25; }
+}
+
+@keyframes draw-evidence { to { stroke-dashoffset: 0; } }
+@keyframes fill-agreement { to { width: 88%; } }
+@keyframes fill-confidence { to { width: 82%; } }
+@keyframes reveal-check { to { opacity: 1; } }
+
+@media (max-width: 1220px) {
+  .hero__layout {
+    grid-template-columns: minmax(350px, .66fr) minmax(570px, 1.34fr);
+    gap: 2.5rem;
+  }
+
+  .hero h1 { font-size: clamp(3.7rem, 6.7vw, 6.2rem); }
+  .hero-demo__viewport { min-height: 570px; }
+  .hero-demo__advisory { min-height: 350px; }
+}
+
+@media (max-width: 1120px) {
+  .hero__layout { grid-template-columns: 1fr; }
+  .hero__copy { max-width: 780px; }
+  .hero-machine-demo { width: min(980px, 100%); }
+  .hero-demo__viewport { min-height: 620px; }
+}
+
+@media (max-width: 720px) {
+  .hero .shell { width: min(100% - 24px, 1340px); }
+  .hero { padding-top: 7.4rem; }
+  .hero__copy { padding-block: 1.5rem 2rem; }
+  .hero h1 { font-size: clamp(3.2rem, 15.2vw, 5rem); }
+  .hero__lede { font-size: 1rem; }
+
+  .hero-machine-demo { border-radius: 17px; }
+  .hero-demo__header { min-height: 48px; padding: .62rem .7rem; }
+  .hero-demo__phase-title { gap: .55rem; }
+  .hero-demo__phase-title > span { width: 24px; height: 24px; font-size: .59rem; }
+  .hero-demo__phase-title strong { max-width: 160px; font-size: .68rem; }
+  .hero-demo__state { display: none; }
+  .hero-demo__control { min-height: 26px; padding-inline: .48rem; font-size: .49rem; }
+
+  .hero-demo__viewport { min-height: 560px; }
+  .hero-demo__grid { background-size: 28px 28px; }
+
+  .hero-demo__chapter {
+    top: 16px;
+    left: 16px;
+    width: calc(100% - 32px);
+    padding: .68rem .78rem;
+  }
+
+  .hero-demo__chapter-number { width: 30px; height: 30px; font-size: .62rem; }
+  .hero-demo__chapter-copy strong { font-size: .78rem; }
+  .hero-demo__chapter-copy small { font-size: .42rem; }
+
+  .disturbance-source { font-size: .4rem; padding: .32rem .42rem; }
+  .disturbance-source--equipment { top: 18%; left: 4%; }
+  .disturbance-source--structure { bottom: 24%; left: 4%; }
+  .disturbance-source--load { top: 22%; right: 4%; }
+  .hero-demo__floor-wave { bottom: 14%; height: 62px; }
+
+  .hero-demo__machine,
+  .hero-machine-demo[data-phase="1"] .hero-demo__machine,
+  .hero-machine-demo[data-phase="2"] .hero-demo__machine,
+  .hero-machine-demo[data-phase="3"] .hero-demo__machine {
+    top: 42%;
+    left: 50%;
+    width: 108%;
+  }
+
+  .hero-machine-demo[data-phase="4"] .hero-demo__machine {
+    top: 47%;
+    left: 50%;
+    width: 75%;
+    opacity: .78;
+  }
+
+  .hero-machine-demo[data-phase="5"] .hero-demo__machine {
+    top: 57%;
+    left: 69%;
+    width: 78%;
+    opacity: .5;
+  }
+
+  .hero-machine-demo[data-phase="6"] .hero-demo__machine {
+    top: 63%;
+    left: 71%;
+    width: 78%;
+    opacity: .28;
+  }
+
+  .sensor-point span,
+  .sensor-point > i::after { display: none; }
+  .sensor-point > i { width: 9px; height: 9px; }
+  .sensor-point--de-x { top: 34%; left: 20%; }
+  .sensor-point--de-y { top: 45%; left: 36%; }
+  .sensor-point--nde-x { top: 31%; right: 18%; }
+  .sensor-point--nde-y { top: 44%; right: 24%; }
+  .sensor-point--environment { right: 11%; bottom: 25%; }
+
+  .hero-demo__noise-wave { top: 31%; width: 60%; }
+  .hero-demo__filter-card { top: 9%; width: 43%; min-height: 125px; }
+  .hero-demo__filter-card--noise { left: 4%; }
+  .hero-demo__filter-card--retained { right: 4%; }
+  .filter-flow { left: 8%; width: 38%; }
+
+  .hero-demo__analysis-stack {
+    top: 6%;
+    right: 4%;
+    left: 4%;
+    width: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: .42rem;
+  }
+
+  .analysis-card--trend { grid-row: span 2; }
+  .analysis-card--trend svg { height: 92px; }
+  .analysis-card--confidence { align-self: stretch; }
+
+  .hero-demo__advisory {
+    top: 6%;
+    right: 5%;
+    left: 5%;
+    width: auto;
+    min-height: 385px;
+  }
+
+  .hero-demo__caption {
+    right: 4%;
+    bottom: 52px;
+    left: 4%;
+  }
+
+  .hero-demo__caption p { font-size: .61rem; }
+  .hero-demo__caption span { font-size: .48rem; }
+
+  .hero-demo__steps {
+    right: 4%;
+    bottom: 17px;
+    left: 4%;
+    justify-content: space-between;
+  }
+
+  .hero-demo__steps button { width: 29px; height: 25px; }
+  .hero-demo__footer { min-height: 42px; grid-template-columns: 1fr; }
+  .hero-demo__footer span { display: none; }
+  .hero-demo__footer span:first-child { display: block; }
+}
+
+@media (max-width: 420px) {
+  .hero-demo__phase-title strong { max-width: 128px; }
+  .hero-demo__controls { gap: .32rem; }
+  .hero-demo__control { padding-inline: .4rem; }
+  .hero-demo__viewport { min-height: 530px; }
+  .hero-demo__filter-card > strong { font-size: .58rem; }
+  .hero-demo__advisory { min-height: 365px; padding: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-machine-demo *,
+  .hero-machine-demo *::before,
+  .hero-machine-demo *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .hero-demo__control[data-demo-toggle] { display: none; }
+}
+
+/* Manual stage selection must always show the complete machine, even if the user paused during the initial reveal. */
+.hero-machine-demo:not([data-phase="1"]) .hero-demo__motor {
+  animation: none;
+  opacity: 1;
+  clip-path: inset(0);
+}
+
+.hero-machine-demo:not([data-phase="1"]) .hero-demo__scan {
+  display: none;
+}
+
+.hero-machine-demo.is-paused .hero-demo__ambient span,
+.hero-machine-demo.is-paused .hero-demo__noise-wave path,
+.hero-machine-demo.is-paused .hero-demo__shaft-rings i,
+.hero-machine-demo.is-paused .filter-flow::after,
+.hero-machine-demo.is-paused .disturbance-source i::after,
+.hero-machine-demo.is-paused .hero-demo__floor-wave path,
+.hero-machine-demo.is-paused .sensor-point--environment > i {
+  animation-play-state: paused !important;
+}
+
+/* Keep the collapsed mobile navigation genuinely outside the visual and interaction tree after the header gains backdrop filtering. */
+@media (max-width: 820px) {
+  .primary-navigation {
+    height: 100svh;
+    min-height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .35s var(--ease-standard), opacity .2s ease, visibility 0s linear .35s;
+  }
+
+  .primary-navigation.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform .35s var(--ease-standard), opacity .2s ease, visibility 0s;
+  }
+}
+
+.hero-machine-demo.is-complete [data-demo-toggle] {
+  display: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   V0.4 production pass — calm pacing, persistent chapter titles, a visibly
+   industrial Stage 3, and readable Stage 5 evidence. These overrides preserve
+   the approved V0.3 composition and six-stage narrative.
+   -------------------------------------------------------------------------- */
+
+.hero-demo__chapter {
+  width: min(430px, calc(100% - 48px));
+  padding: .9rem 1.08rem .92rem .92rem;
+  background: linear-gradient(110deg, rgba(4, 14, 27, .94), rgba(7, 21, 38, .82));
+  box-shadow: 0 22px 56px rgba(0, 5, 14, .36);
+}
+
+.hero-demo__chapter-copy small {
+  font-size: .51rem;
+}
+
+.hero-demo__chapter-copy strong {
+  font-size: 1rem;
+}
+
+/* The chapter remains readable through almost the whole stage instead of
+   disappearing while the visual explanation is still unfolding. */
+.hero-machine-demo.is-announcing .hero-demo__chapter {
+  animation: chapter-arrive-v04 var(--chapter-duration, 4400ms) var(--ease-standard) both;
+}
+
+@keyframes chapter-arrive-v04 {
+  0% { opacity: 0; transform: translateY(12px); }
+  6% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Stage 3 uses the exact signed-off concept scene rather than the tiled,
+   abstract industrial texture used in V0.3. */
+.hero-demo__factory {
+  background:
+    linear-gradient(to bottom, rgba(4, 13, 25, .08), rgba(4, 13, 25, .18)),
+    url("../img/industrial-noise-scene-v0.4.jpg") center 50% / auto 82% no-repeat;
+  clip-path: inset(9% 43% 9% 43% round 24px);
+  filter: saturate(.62) contrast(1.02) brightness(.54) blur(6px);
+}
+
+.hero-demo__factory::after {
+  opacity: .72;
+  transition: opacity 1.1s ease;
+  background:
+    linear-gradient(to bottom, rgba(4, 13, 25, .12), transparent 18%, transparent 82%, rgba(4, 13, 25, .26)),
+    radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(4, 13, 25, .08) 72%, rgba(4, 13, 25, .38));
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__factory {
+  opacity: 1;
+  filter: saturate(.92) contrast(1.08) brightness(1.05) blur(0);
+  transition-delay: .34s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__factory::after {
+  opacity: .12;
+}
+
+/* The approved industrial scene already contains the motor. Fading the
+   separate technical-twin layer prevents a doubled motor while maintaining
+   a smooth transition from Stage 2. */
+.hero-machine-demo[data-phase="3"] .hero-demo__machine {
+  opacity: 0;
+  filter: saturate(.8) brightness(.7) blur(1px);
+  transition-delay: .42s;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__noise-wave {
+  z-index: 10;
+  opacity: .74;
+  filter: drop-shadow(0 0 9px rgba(151, 181, 207, .42));
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__floor-wave {
+  z-index: 10;
+  opacity: .74;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__ambient {
+  opacity: .72;
+}
+
+/* Stage 4 keeps only a restrained trace of the industrial context while the
+   technical twin returns and the filtering explanation takes over. */
+.hero-machine-demo[data-phase="4"] .hero-demo__factory {
+  opacity: .12;
+  filter: saturate(.5) contrast(1.02) brightness(.52) blur(0);
+}
+.hero-machine-demo[data-phase="4"] .hero-demo__factory::after { opacity: .78; }
+.hero-machine-demo[data-phase="5"] .hero-demo__factory,
+.hero-machine-demo[data-phase="6"] .hero-demo__factory { opacity: .035; }
+
+/* Reserve visual space beneath the persistent chapter title. */
+.hero-demo__filter-card { top: 24%; }
+.hero-demo__analysis-stack {
+  top: 22%;
+  width: 39%;
+  gap: .58rem;
+}
+.hero-demo__advisory { top: 21%; }
+
+/* Stage 5 must read as an explanation, not merely orange graph lines. */
+.analysis-card {
+  padding: .72rem .78rem;
+  border-color: rgba(107, 136, 173, .34);
+  background: rgba(4, 14, 27, .9);
+}
+
+.analysis-card > span {
+  color: #a8bbcc;
+  font-size: .52rem;
+  letter-spacing: .065em;
+}
+
+.analysis-card__value {
+  display: block;
+  margin-top: .17rem;
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.012em;
+}
+
+.analysis-card__detail {
+  display: block;
+  margin-top: .18rem;
+  color: #91a6b9;
+  font: 400 .49rem/1.42 var(--font-mono);
+}
+
+.analysis-card--trend svg {
+  height: 62px;
+  margin-top: .42rem;
+}
+
+.analysis-card--agreement {
+  gap: .31rem;
+}
+
+.analysis-card--agreement > div {
+  grid-template-columns: 38px 1fr 15px;
+  font-size: .5rem;
+}
+
+.analysis-confidence {
+  margin-top: .66rem;
+}
+
+.analysis-confidence strong {
+  font-size: .78rem;
+}
+
+/* Each evidence card enters calmly and remains fully readable. */
+.hero-demo__analysis-stack .analysis-card {
+  opacity: 0;
+  transform: translateY(9px);
+  transition: opacity .55s ease, transform .72s var(--ease-standard);
+}
+.hero-machine-demo[data-phase="5"] .hero-demo__analysis-stack .analysis-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hero-machine-demo[data-phase="5"] .hero-demo__analysis-stack .analysis-card:nth-child(1) { transition-delay: .72s; }
+.hero-machine-demo[data-phase="5"] .hero-demo__analysis-stack .analysis-card:nth-child(2) { transition-delay: 1.12s; }
+.hero-machine-demo[data-phase="5"] .hero-demo__analysis-stack .analysis-card:nth-child(3) { transition-delay: 1.52s; }
+
+/* Longer fades and transitions remove the hurried feel without changing the
+   approved visual design. */
+.hero-demo__machine,
+.hero-demo__factory,
+.hero-demo__analysis-stack,
+.hero-demo__filter-card,
+.hero-demo__advisory {
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (max-width: 720px) {
+  .hero-demo__chapter {
+    width: calc(100% - 32px);
+    padding: .74rem .82rem;
+  }
+  .hero-demo__chapter-copy strong { font-size: .83rem; }
+  .hero-demo__factory {
+    background-position: 49% 48%;
+    background-size: auto 69%;
+  }
+  .hero-demo__filter-card { top: 22%; }
+  .hero-demo__analysis-stack {
+    top: 21%;
+    width: auto;
+  }
+  .analysis-card__value { font-size: .64rem; }
+  .analysis-card__detail { font-size: .45rem; }
+  .hero-demo__advisory { top: 20%; }
+}
+
+/* --------------------------------------------------------------------------
+   V0.4.2 surgical production correction (preserved in V0.4.3)
+   - preserves the approved V0.4 choreography and Stage 3 industrial scene
+   - anchors observation markers to measured motor landmarks
+   - anchors the rotational pulse to the visible shaft axis
+   - updates only the agreed two-location evidence wording
+   -------------------------------------------------------------------------- */
+
+/* The shaft pulse uses the same intrinsic motor coordinate map as the
+   observation markers. It therefore remains centred when the machine moves
+   and scales in Stages 5 and 6. */
+.hero-demo__shaft-rings {
+  left: var(--shaft-x, 19.4%);
+  top: var(--shaft-y, 62.1%);
+  width: 13.5%;
+}
+
+.hero-demo__shaft-rings i {
+  border-color: rgba(212, 160, 55, .72);
+  box-shadow: 0 0 14px rgba(212, 160, 55, .12);
+  animation-duration: 2.15s;
+}
+
+.hero-demo__shaft-rings i:nth-child(2) { animation-delay: .72s; }
+.hero-demo__shaft-rings i:nth-child(3) { animation-delay: 1.44s; }
+
+/* Markers are dots whose centres are placed by the landmark map in
+   hero-demo-v0.4.3.js. Labels and leaders then resolve away from the exact
+   anchor point instead of determining the anchor themselves. */
+.hero-demo__sensor-layer .sensor-point {
+  display: block;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, calc(-50% + 8px));
+}
+
+.hero-demo__sensor-layer .sensor-point > i {
+  position: absolute;
+  inset: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.hero-demo__sensor-layer .sensor-point > i::after {
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.hero-demo__sensor-layer .sensor-point span {
+  position: absolute;
+  min-width: max-content;
+}
+
+.sensor-point--primary {
+  left: var(--primary-x, 26%);
+  top: var(--primary-y, 57%);
+}
+
+.hero-demo__sensor-layer .sensor-point--primary > i::after {
+  right: 100%;
+  left: auto;
+  width: 90px;
+  background: linear-gradient(270deg, rgba(212, 160, 55, .68), transparent);
+}
+
+.hero-demo__sensor-layer .sensor-point--primary span {
+  top: 50%;
+  right: 100px;
+  left: auto;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+.sensor-point--secondary {
+  left: var(--secondary-x, 52%);
+  top: var(--secondary-y, 43%);
+}
+
+.hero-demo__sensor-layer .sensor-point--secondary > i::after {
+  right: auto;
+  left: 100%;
+  width: 92px;
+  transform: translateY(-50%) rotate(-31deg);
+  transform-origin: left center;
+}
+
+.hero-demo__sensor-layer .sensor-point--secondary span {
+  top: -61px;
+  right: auto;
+  left: 80px;
+  transform: none;
+  text-align: left;
+}
+
+.sensor-point--environment {
+  top: 76%;
+  right: auto;
+  bottom: auto;
+  left: 90.2%;
+}
+
+.hero-demo__sensor-layer .sensor-point--environment > i::after {
+  right: 100%;
+  left: auto;
+  width: 60px;
+  background: linear-gradient(270deg, rgba(212, 160, 55, .68), transparent);
+}
+
+.hero-demo__sensor-layer .sensor-point--environment span {
+  top: 50%;
+  right: 70px;
+  left: auto;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+.hero-machine-demo[data-phase="2"] .sensor-point,
+.hero-machine-demo[data-phase="3"] .sensor-point {
+  transform: translate(-50%, -50%);
+}
+
+.hero-machine-demo[data-phase="2"] .hero-demo__sensor-layer .sensor-point--primary {
+  transition-delay: .48s;
+}
+
+.hero-machine-demo[data-phase="2"] .hero-demo__sensor-layer .sensor-point--secondary {
+  transition-delay: .82s;
+}
+
+.hero-machine-demo[data-phase="2"] .hero-demo__sensor-layer .sensor-point--environment {
+  transition-delay: 1.16s;
+}
+
+/* The environmental reference is contextual rather than corroborating machine
+   evidence. Its Stage 5 bar therefore remains deliberately partial. */
+.analysis-card--agreement > div {
+  grid-template-columns: 52px 1fr 15px;
+  font-size: .5rem;
+}
+
+.analysis-card--agreement .is-reference {
+  color: #6f879c;
+}
+
+.analysis-card--agreement .is-reference em {
+  background: var(--rotational-blue);
+}
+
+.analysis-card--agreement .is-reference > strong {
+  color: #9fb2c4;
+  border: 1px solid rgba(107, 136, 173, .4);
+  background: rgba(107, 136, 173, .18);
+}
+
+.hero-machine-demo[data-phase="5"] .analysis-card--agreement .is-reference em {
+  animation-name: fill-reference;
+}
+
+@keyframes fill-reference { to { width: 42%; } }
+
+/* The final advisory already contains the complete message. Hiding the
+   separate caption on narrow screens prevents the V0.4 overlap without
+   altering the desktop composition. */
+@media (max-width: 720px) {
+  .hero-demo__sensor-layer .sensor-point span,
+  .hero-demo__sensor-layer .sensor-point > i::after {
+    display: none;
+  }
+
+  .hero-demo__sensor-layer .sensor-point > i {
+    width: 9px;
+    height: 9px;
+  }
+
+  .hero-machine-demo[data-phase="6"] .hero-demo__caption {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   V0.4.3 message hierarchy and copy-refinement pass
+   - text hierarchy only
+   - no animation, geometry, timing, positioning, spacing, or scene changes
+   -------------------------------------------------------------------------- */
+
+.hero-demo__phase-title strong {
+  font-size: .88rem;
+}
+
+.hero-demo__chapter-copy small {
+  font-size: .53rem;
+}
+
+.hero-demo__chapter-copy strong {
+  font-size: 1.16rem;
+}
+
+.hero-demo__caption p {
+  color: #e0e7ee;
+  font-size: .75rem;
+}
+
+.hero-demo__caption span {
+  color: #879db1;
+  font-size: .54rem;
+}
+
+.hero-demo__advisory p {
+  font-size: .64rem;
+}
+
+.hero-demo__advisory h2 {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 720px) {
+  .hero-demo__header {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+  }
+
+  .hero-demo__phase-title {
+    width: 100%;
+  }
+
+  .hero-demo__phase-title strong {
+    max-width: none;
+    font-size: .76rem;
+  }
+
+  .hero-demo__chapter-copy small {
+    font-size: .44rem;
+  }
+
+  .hero-demo__chapter-copy strong {
+    font-size: .98rem;
+  }
+
+  .hero-demo__caption p {
+    font-size: .69rem;
+  }
+
+  .hero-demo__caption span {
+    font-size: .5rem;
+  }
+
+  .hero-demo__advisory p {
+    font-size: .61rem;
+  }
+
+  .hero-demo__advisory h2 {
+    font-size: 1.15rem;
+  }
+}
+

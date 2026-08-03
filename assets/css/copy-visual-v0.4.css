@@ -1,0 +1,331 @@
+/* EchoShift Website V0.4 — copy and visual integration only.
+   The frozen hero and guided-journey styles remain untouched. */
+
+@layer sections {
+  #capability-title { max-width: 18ch; }
+
+  .industrial-photo-slot picture,
+  .industrial-photo-slot picture img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .industrial-photo-slot picture img {
+    object-fit: cover;
+    object-position: 50% 54%;
+    transform: scale(1.002);
+  }
+
+  .industrial-photo-slot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 48%, rgba(5, 12, 22, .54) 100%);
+  }
+
+  .industrial-photo-slot figcaption { z-index: 2; }
+
+  .capability-visual {
+    position: relative;
+    min-height: 490px;
+    overflow: hidden;
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    background: #dce3e9;
+    box-shadow: var(--shadow-light);
+  }
+
+  .capability-visual picture,
+  .capability-visual picture img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .capability-visual picture {
+    position: absolute;
+    inset: 0;
+  }
+
+  .capability-visual picture img {
+    object-fit: cover;
+    object-position: 50% 51%;
+  }
+
+  .capability-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(5, 12, 22, .08), transparent 36%, rgba(5, 12, 22, .25) 100%),
+      linear-gradient(90deg, rgba(5, 12, 22, .12), transparent 30%, transparent 70%, rgba(5, 12, 22, .08));
+  }
+
+  .capability-callout {
+    position: absolute;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    color: var(--white);
+  }
+
+  .capability-callout > i {
+    position: absolute;
+    inset: -6px auto auto -6px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--signal-gold);
+    border-radius: 50%;
+    background: rgba(212, 160, 55, .28);
+    box-shadow: 0 0 0 6px rgba(212, 160, 55, .13);
+  }
+
+  .capability-callout > strong {
+    position: absolute;
+    display: block;
+    min-width: 150px;
+    max-width: 190px;
+    padding: .56rem .72rem;
+    border: 1px solid rgba(255, 255, 255, .52);
+    border-radius: 999px;
+    color: var(--white);
+    background: rgba(10, 20, 38, .84);
+    box-shadow: 0 12px 30px rgba(4, 10, 18, .24);
+    backdrop-filter: blur(12px) saturate(115%);
+    font-size: .72rem;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  .capability-callout > strong::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(212, 160, 55, .85), rgba(212, 160, 55, .2));
+  }
+
+  .capability-callout--temperature { top: 29%; left: 48%; }
+  .capability-callout--temperature > strong { left: 18px; bottom: 18px; }
+  .capability-callout--temperature > strong::after { left: -18px; bottom: -8px; width: 28px; transform: rotate(42deg); transform-origin: left; }
+
+  .capability-callout--rotation { top: 52%; left: 65%; }
+  .capability-callout--rotation > strong { right: 20px; top: -18px; }
+  .capability-callout--rotation > strong::after { right: -20px; top: 18px; width: 20px; }
+
+  .capability-callout--alignment { top: 46%; left: 69%; }
+  .capability-callout--alignment > strong { left: 22px; top: 18px; }
+  .capability-callout--alignment > strong::after { left: -22px; top: -10px; width: 31px; transform: rotate(-35deg); transform-origin: left; }
+
+  .capability-callout--mounting { top: 77%; left: 35%; }
+  .capability-callout--mounting > strong { right: 20px; top: 18px; }
+  .capability-callout--mounting > strong::after { right: -20px; top: -10px; width: 29px; transform: rotate(35deg); transform-origin: right; }
+
+  .capability-callout-legend i {
+    flex: 0 0 auto;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--signal-gold);
+    border-radius: 50%;
+    background: rgba(212, 160, 55, .22);
+    box-shadow: 0 0 0 5px rgba(212, 160, 55, .11);
+  }
+
+  .capability-callout-legend {
+    display: none;
+    list-style: none;
+  }
+
+  .capability-visual figcaption {
+    position: absolute;
+    z-index: 3;
+    inset: auto 1rem .8rem;
+    max-width: 620px;
+    color: rgba(255, 255, 255, .82);
+    font-size: .66rem;
+    line-height: 1.45;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .4);
+  }
+
+  .capability-list > div {
+    grid-template-columns: minmax(108px, .58fr) minmax(0, 1.42fr);
+  }
+
+  .capability-list dd { font-size: .94rem; }
+
+  .principle-grid article {
+    display: flex;
+    flex-direction: column;
+    min-height: 410px;
+  }
+
+  .principle-diagram {
+    width: 100%;
+    height: auto;
+    margin: 1.35rem 0 1.1rem;
+    border-radius: 14px;
+  }
+
+  .principle-grid h3 { margin-top: 0; }
+  .principle-grid p { margin-top: .85rem; }
+
+  .signal-path {
+    align-items: stretch;
+    gap: .8rem;
+  }
+
+  .signal-step {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: .65rem;
+    width: min(150px, 17vw);
+    min-width: 118px;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .signal-step img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .signal-step b {
+    color: #cbd7e3;
+    font-weight: 500;
+  }
+
+  .signal-path > i { align-self: 29px; }
+
+  .process-grid li {
+    min-height: 365px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .process-illustration {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0 .7rem;
+  }
+
+  .process-grid h3 { margin-top: 0; }
+  .process-grid p { margin-top: .85rem; }
+}
+
+@layer responsive {
+  @media (max-width: 1120px) {
+    .capability-visual { min-height: 610px; }
+    .principle-grid article { min-height: 370px; }
+    .signal-step { width: 150px; }
+  }
+
+  @media (max-width: 820px) {
+    .industrial-photo-slot picture img { object-position: 50% 55%; }
+    .capability-visual { min-height: 560px; }
+
+    .signal-path {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: stretch;
+      gap: .25rem;
+    }
+
+    .signal-step {
+      width: 100%;
+      min-width: 0;
+      grid-template-columns: 58px 1fr;
+      justify-items: start;
+      align-items: center;
+      gap: 1rem;
+      padding: .65rem .8rem;
+      border: 1px solid var(--line-dark);
+      border-radius: 14px;
+      text-align: left;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .signal-path > i {
+      align-self: auto;
+      width: 1px;
+      height: 18px;
+      margin-left: 36px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    #capability-title { max-width: 15ch; }
+
+    .industrial-photo-slot picture img {
+      object-position: 52% 54%;
+    }
+
+    .industrial-photo-slot figcaption {
+      max-width: calc(100% - 1.5rem);
+      padding: 1rem;
+    }
+
+    .industrial-photo-slot figcaption strong { font-size: .94rem; }
+
+    .capability-visual {
+      min-height: auto;
+      overflow: visible;
+      border-radius: 20px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .capability-visual picture {
+      position: relative;
+      display: block;
+      height: 430px;
+      overflow: hidden;
+      border: 1px solid var(--line-light);
+      border-radius: 20px;
+      background: #dce3e9;
+      box-shadow: var(--shadow-light);
+    }
+
+    .capability-visual picture img {
+      object-position: 48% 50%;
+    }
+
+    .capability-visual::after,
+    .capability-callout { display: none; }
+
+    .capability-callout-legend {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .6rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--line-light);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .72);
+    }
+
+    .capability-callout-legend li {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      color: var(--steel);
+      font-size: .76rem;
+      font-weight: 650;
+    }
+
+    .capability-visual figcaption {
+      position: static;
+      margin-top: .65rem;
+      color: var(--muted);
+      text-shadow: none;
+    }
+
+    .capability-list > div { grid-template-columns: 1fr; }
+
+    .principle-grid article { min-height: 0; }
+    .principle-diagram { margin-block: 1.1rem .9rem; }
+
+    .process-grid li { min-height: 0; }
+    .process-illustration { max-width: 280px; margin-inline: auto; }
+  }
+}
