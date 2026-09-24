@@ -34,6 +34,6 @@ if (menuButton && navigation) {
   });
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 820) closeMenu();
+    if (window.innerWidth > 980) closeMenu();
   });
 }

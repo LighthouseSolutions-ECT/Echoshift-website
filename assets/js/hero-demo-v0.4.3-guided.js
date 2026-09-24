@@ -57,7 +57,7 @@ if (demo) {
       number: '01',
       title: 'What EchoShift is',
       caption: 'Practical condition monitoring built around the machine.',
-      subcaption: '17–22 kW squirrel-cage induction motor',
+      subcaption: '18.5 kW squirrel-cage induction motor',
       duration: 4800,
     },
     {

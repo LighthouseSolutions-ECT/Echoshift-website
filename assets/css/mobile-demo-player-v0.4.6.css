@@ -94,7 +94,7 @@
     color: #dbe6ef;
     background: rgba(7,18,33,.96);
     box-shadow: 0 18px 52px rgba(0,5,14,.5), inset 0 1px 0 rgba(255,255,255,.04);
-    backdrop-filter: blur(18px) saturate(125%);
+    -webkit-backdrop-filter:blur(18px) saturate(125%);backdrop-filter:blur(18px) saturate(125%);
   }
 
   .mobile-demo-mini:not([hidden]) { display: grid; }

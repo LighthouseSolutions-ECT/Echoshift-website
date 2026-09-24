@@ -1,11 +1,11 @@
 {
   "name": "EchoShift",
   "short_name": "EchoShift",
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0A1426",
   "theme_color": "#0A1426",
-  "description": "Practical condition monitoring for industrial motors, beginning with a focused pilot and developing toward broader rotating-asset coverage.",
+  "description": "On-site vibration diagnostics and condition monitoring for industrial rotating machinery across the West Midlands.",
   "icons": [
     {
       "src": "/favicon-192.png",
@@ -23,5 +23,6 @@
       "type": "image/png",
       "purpose": "any"
     }
-  ]
+  ],
+  "scope": "/"
 }
