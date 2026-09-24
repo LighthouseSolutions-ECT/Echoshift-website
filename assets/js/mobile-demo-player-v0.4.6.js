@@ -13,7 +13,7 @@ const miniResume = mini?.querySelector('[data-demo-mini-resume]');
 const miniRestart = mini?.querySelector('[data-demo-mini-restart]');
 const miniClose = mini?.querySelector('[data-demo-mini-close]');
 const announcer = document.querySelector('[data-demo-player-announcer]');
-const finalCta = document.querySelector('#pilot');
+const finalCta = document.querySelector('#contact');
 const mobile = window.matchMedia('(max-width: 820px)');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -56,7 +56,7 @@ if (demo && demoColumn && heroCopy && heroActions && mini) {
 
   const placeForBreakpoint = () => {
     if (mobile.matches) {
-      if (demoColumn.parentNode !== heroCopy) heroCopy.insertBefore(demoColumn, heroActions);
+      if (demoColumn.parentNode !== heroCopy) heroCopy.appendChild(demoColumn);
       demoColumn.dataset.mobilePlayer = '';
     } else {
       mini.hidden = true;

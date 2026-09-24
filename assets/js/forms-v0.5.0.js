@@ -20,3 +20,9 @@ document.querySelectorAll('[data-lead-form]').forEach(form => {
     }
   });
 });
+
+// Preserve the visitor's monitoring context in the existing contact form.
+const enquiryTopic = document.getElementById("contact_topic");
+if (enquiryTopic && new URLSearchParams(window.location.search).get("service") === "condition-monitoring") {
+  enquiryTopic.value = "Continuous condition monitoring";
+}
