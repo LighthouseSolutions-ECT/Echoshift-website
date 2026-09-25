@@ -56,15 +56,15 @@ if (demo) {
     {
       number: '01',
       title: 'What EchoShift is',
-      caption: 'Practical condition monitoring built around the machine.',
-      subcaption: '18.5 kW squirrel-cage induction motor',
+      caption: 'Machine vibration, environmental reference and operating context — interpreted together.',
+      subcaption: 'Illustrative 18.5 kW squirrel-cage induction motor',
       duration: 4800,
     },
     {
       number: '02',
       title: 'Where we listen',
-      caption: 'Two machine locations observe structural behaviour, with a separate environmental reference.',
-      subcaption: 'Drive-end bearing zone · frame-centre · surrounding context',
+      caption: 'Two machine measurement nodes observe structural behaviour, with a separate environmental reference.',
+      subcaption: 'DE bearing node · frame-centre node · environmental reference',
       duration: 5300,
     },
     {

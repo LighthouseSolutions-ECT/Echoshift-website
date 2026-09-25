@@ -1,0 +1,475 @@
+/* EchoShift v0.5.5 — hero narrative / instrumentation polish
+   Scope:
+   - enrich stage 1 without replacing the signed-off motor visual
+   - replace generic stage-2 dots with instrument-style measurement nodes
+   - remove measurement nodes completely from stage 3
+   - give stage 3 its own directional interference language
+   - preserve stages 4–6, timing, motor asset, navigation and mobile-player behaviour
+*/
+
+/* --------------------------------------------------------------------------
+   Stage 1: explain the monitoring architecture around the motor
+   -------------------------------------------------------------------------- */
+
+.hero-demo__system-map {
+  position: absolute;
+  z-index: 11;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .42s ease;
+}
+
+.hero-demo__system-card {
+  position: absolute;
+  display: flex;
+  width: min(220px, 31%);
+  align-items: center;
+  gap: .62rem;
+  padding: .62rem .72rem;
+  border: 1px solid rgba(120, 154, 185, .24);
+  border-left: 2px solid rgba(212, 160, 55, .78);
+  border-radius: 10px;
+  color: #dce7f0;
+  background:
+    linear-gradient(110deg, rgba(4, 14, 27, .86), rgba(8, 24, 42, .58)),
+    rgba(4, 14, 27, .66);
+  box-shadow: 0 14px 36px rgba(0, 5, 14, .24);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .42s ease, transform .58s var(--ease-standard);
+}
+
+.hero-demo__system-card > span:last-child {
+  display: grid;
+  min-width: 0;
+  gap: .12rem;
+}
+
+.hero-demo__system-card small {
+  color: #8ca4b9;
+  font: 500 .45rem/1.15 var(--font-mono);
+  letter-spacing: .065em;
+  text-transform: uppercase;
+}
+
+.hero-demo__system-card strong {
+  color: #f1f5f8;
+  font-size: .66rem;
+  font-weight: 560;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+
+.hero-demo__system-glyph {
+  position: relative;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(212, 160, 55, .56);
+  border-radius: 50%;
+  color: #f4d27a;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212,160,55,.18) 0 19%, transparent 21%),
+    linear-gradient(90deg, transparent 48%, rgba(212,160,55,.34) 49% 51%, transparent 52%),
+    linear-gradient(transparent 48%, rgba(212,160,55,.34) 49% 51%, transparent 52%),
+    rgba(5, 17, 31, .92);
+  box-shadow: 0 0 0 5px rgba(212,160,55,.045), 0 0 20px rgba(212,160,55,.12);
+  font: 600 .42rem/1 var(--font-mono);
+  letter-spacing: .02em;
+}
+
+.hero-demo__system-glyph--reference {
+  border-color: rgba(135, 181, 219, .62);
+  color: #c7e0f2;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(113,161,199,.18) 0 19%, transparent 21%),
+    linear-gradient(90deg, transparent 48%, rgba(126,174,210,.32) 49% 51%, transparent 52%),
+    linear-gradient(transparent 48%, rgba(126,174,210,.32) 49% 51%, transparent 52%),
+    rgba(5, 17, 31, .92);
+  box-shadow: 0 0 0 5px rgba(107,136,173,.05), 0 0 20px rgba(110,164,205,.12);
+}
+
+.hero-demo__system-glyph--context {
+  border-radius: 8px;
+}
+
+.hero-demo__system-card--machine { top: 19%; left: 4%; }
+.hero-demo__system-card--reference { top: 19%; right: 4%; border-left-color: rgba(124, 174, 212, .72); }
+.hero-demo__system-card--context { right: 4%; bottom: 17%; }
+
+.hero-machine-demo[data-phase="1"] .hero-demo__system-map {
+  opacity: 1;
+}
+
+.hero-machine-demo[data-phase="1"] .hero-demo__system-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-machine-demo[data-phase="1"] .hero-demo__system-card--machine { transition-delay: .44s; }
+.hero-machine-demo[data-phase="1"] .hero-demo__system-card--reference { transition-delay: .64s; }
+.hero-machine-demo[data-phase="1"] .hero-demo__system-card--context { transition-delay: .84s; }
+
+/* --------------------------------------------------------------------------
+   Stage 2: measurement nodes, not generic dots
+   -------------------------------------------------------------------------- */
+
+.hero-demo__sensor-layer .sensor-point {
+  width: 28px;
+  height: 28px;
+}
+
+.hero-demo__sensor-layer .sensor-point > i {
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+  border: 1px solid rgba(212, 160, 55, .88);
+  background:
+    radial-gradient(circle at center, rgba(212,160,55,.24) 0 16%, transparent 18%),
+    linear-gradient(90deg, transparent 47%, rgba(212,160,55,.23) 48% 52%, transparent 53%),
+    linear-gradient(transparent 47%, rgba(212,160,55,.23) 48% 52%, transparent 53%),
+    rgba(4, 15, 28, .92);
+  box-shadow:
+    0 0 0 5px rgba(212, 160, 55, .055),
+    0 0 0 1px rgba(212, 160, 55, .14) inset,
+    0 0 22px rgba(212, 160, 55, .22);
+}
+
+.hero-demo__sensor-layer .sensor-point > i > b {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #f3d377;
+  font: 600 .38rem/1 var(--font-mono);
+  letter-spacing: .02em;
+}
+
+.hero-demo__sensor-layer .sensor-point > i::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px solid rgba(212, 160, 55, .2);
+  border-radius: 50%;
+  opacity: .7;
+  animation: echoshift-node-pulse 2.2s ease-out infinite;
+}
+
+.hero-demo__sensor-layer .sensor-point--secondary > i::before {
+  animation-delay: .55s;
+}
+
+.hero-demo__sensor-layer .sensor-point--environment > i {
+  border-color: rgba(132, 181, 219, .92);
+  background:
+    radial-gradient(circle at center, rgba(117,171,211,.22) 0 16%, transparent 18%),
+    linear-gradient(90deg, transparent 47%, rgba(126,174,210,.23) 48% 52%, transparent 53%),
+    linear-gradient(transparent 47%, rgba(126,174,210,.23) 48% 52%, transparent 53%),
+    rgba(4, 15, 28, .92);
+  box-shadow:
+    0 0 0 5px rgba(107, 136, 173, .055),
+    0 0 0 1px rgba(126,174,210,.15) inset,
+    0 0 22px rgba(116, 169, 209, .2);
+}
+
+.hero-demo__sensor-layer .sensor-point--environment > i > b {
+  color: #c8e2f4;
+  font-size: .31rem;
+}
+
+.hero-demo__sensor-layer .sensor-point--environment > i::before {
+  border-color: rgba(126, 174, 210, .26);
+  animation-delay: .32s;
+}
+
+.hero-demo__sensor-layer .sensor-point span {
+  padding: .38rem .48rem;
+  border: 1px solid rgba(112, 146, 178, .18);
+  border-radius: 7px;
+  background: rgba(4, 14, 27, .66);
+  box-shadow: 0 10px 26px rgba(0, 5, 14, .2);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.hero-demo__sensor-layer .sensor-point span strong {
+  font-size: .5rem;
+  letter-spacing: .015em;
+}
+
+.hero-demo__sensor-layer .sensor-point span {
+  font-size: .46rem;
+}
+
+/* Stage 3 has its own visual language. Measurement nodes must not persist. */
+.hero-machine-demo[data-phase="3"] .hero-demo__sensor-layer .sensor-point {
+  opacity: 0 !important;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(.78) !important;
+  transition-delay: 0s !important;
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__sensor-layer .sensor-point > i,
+.hero-machine-demo[data-phase="3"] .hero-demo__sensor-layer .sensor-point > i::before {
+  animation: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Stage 3: directional sources / interference paths
+   -------------------------------------------------------------------------- */
+
+.hero-demo__interference-vectors {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .48s ease;
+}
+
+.interference-vector {
+  position: absolute;
+  height: 1px;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(147, 182, 210, .22) 12%, rgba(147, 182, 210, .72) 62%, rgba(212, 160, 55, .6));
+  filter: drop-shadow(0 0 6px rgba(137, 174, 205, .25));
+  transform-origin: left center;
+  transition: opacity .42s ease, transform .72s var(--ease-standard);
+}
+
+.interference-vector::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid rgba(212,160,55,.78);
+  border-right: 1px solid rgba(212,160,55,.78);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.interference-vector::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b9d0e2;
+  box-shadow: 0 0 12px rgba(147, 182, 210, .55);
+  transform: translate(-50%, -50%);
+  animation: echoshift-vector-travel 2.1s linear infinite;
+}
+
+.interference-vector--equipment {
+  top: 36%;
+  left: 11%;
+  width: 31%;
+  transform: rotate(8deg) scaleX(.86);
+}
+
+.interference-vector--load {
+  top: 35%;
+  right: 10%;
+  width: 31%;
+  background: linear-gradient(270deg, transparent, rgba(147, 182, 210, .22) 12%, rgba(147, 182, 210, .72) 62%, rgba(212, 160, 55, .6));
+  transform: rotate(-10deg) scaleX(.86);
+  transform-origin: right center;
+}
+
+.interference-vector--load::after {
+  right: auto;
+  left: -1px;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid rgba(212,160,55,.78);
+  border-left: 1px solid rgba(212,160,55,.78);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.interference-vector--load::before {
+  right: 8%;
+  left: auto;
+  animation-name: echoshift-vector-travel-reverse;
+}
+
+.interference-vector--structure {
+  bottom: 22%;
+  left: 13%;
+  width: 42%;
+  transform: rotate(-3deg) scaleX(.86);
+}
+
+.hero-machine-demo[data-phase="3"] .hero-demo__interference-vectors {
+  opacity: 1;
+  transition-delay: .74s;
+}
+
+.hero-machine-demo[data-phase="3"] .interference-vector {
+  opacity: .88;
+}
+
+.hero-machine-demo[data-phase="3"] .interference-vector--equipment { transform: rotate(8deg) scaleX(1); transition-delay: .92s; }
+.hero-machine-demo[data-phase="3"] .interference-vector--structure { transform: rotate(-3deg) scaleX(1); transition-delay: 1.12s; }
+.hero-machine-demo[data-phase="3"] .interference-vector--load { transform: rotate(-10deg) scaleX(1); transition-delay: 1.32s; }
+
+/* Do not accumulate Stage-3 interference language into the later evidence stages. */
+.hero-machine-demo:not([data-phase="3"]) .hero-demo__interference-vectors {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive fit
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1120px) {
+  .hero-demo__system-card {
+    width: min(210px, 30%);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-demo__system-map {
+    top: auto;
+    right: 4%;
+    bottom: 104px;
+    left: 4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .34rem;
+  }
+
+  .hero-demo__system-card {
+    position: relative;
+    inset: auto;
+    width: auto;
+    min-height: 47px;
+    gap: .42rem;
+    padding: .43rem .48rem;
+    border-radius: 8px;
+  }
+
+  .hero-demo__system-card--context {
+    grid-column: 1 / -1;
+    width: min(76%, 290px);
+    justify-self: center;
+  }
+
+  .hero-demo__system-glyph {
+    width: 27px;
+    height: 27px;
+    font-size: .34rem;
+  }
+
+  .hero-demo__system-card small {
+    font-size: .34rem;
+    letter-spacing: .045em;
+  }
+
+  .hero-demo__system-card strong {
+    font-size: .43rem;
+    line-height: 1.18;
+  }
+
+  .hero-demo__sensor-layer .sensor-point {
+    width: 24px;
+    height: 24px;
+  }
+
+  .hero-demo__sensor-layer .sensor-point > i {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .hero-demo__sensor-layer .sensor-point > i > b {
+    font-size: .34rem;
+  }
+
+  .hero-demo__sensor-layer .sensor-point--environment > i > b {
+    font-size: .27rem;
+  }
+
+  .hero-demo__sensor-layer .sensor-point > i::before {
+    inset: -5px;
+  }
+
+  .interference-vector--equipment {
+    top: 39%;
+    left: 6%;
+    width: 36%;
+  }
+
+  .interference-vector--load {
+    top: 40%;
+    right: 6%;
+    width: 34%;
+  }
+
+  .interference-vector--structure {
+    bottom: 26%;
+    left: 8%;
+    width: 48%;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-demo__system-map {
+    bottom: 102px;
+    gap: .28rem;
+  }
+
+  .hero-demo__system-card {
+    min-height: 44px;
+    padding: .38rem .4rem;
+  }
+
+  .hero-demo__system-card--context {
+    width: 82%;
+  }
+
+  .hero-demo__system-glyph {
+    width: 24px;
+    height: 24px;
+  }
+
+  .hero-demo__system-card small { font-size: .31rem; }
+  .hero-demo__system-card strong { font-size: .39rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-demo__system-card,
+  .hero-demo__sensor-layer .sensor-point > i::before,
+  .interference-vector,
+  .interference-vector::before {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@keyframes echoshift-node-pulse {
+  0% { transform: scale(.72); opacity: 0; }
+  28% { opacity: .62; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+@keyframes echoshift-vector-travel {
+  from { left: 8%; opacity: 0; }
+  15% { opacity: .95; }
+  85% { opacity: .95; }
+  to { left: 93%; opacity: 0; }
+}
+
+@keyframes echoshift-vector-travel-reverse {
+  from { right: 8%; opacity: 0; }
+  15% { opacity: .95; }
+  85% { opacity: .95; }
+  to { right: 93%; opacity: 0; }
+}

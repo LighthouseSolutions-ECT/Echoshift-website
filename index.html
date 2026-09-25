@@ -39,7 +39,7 @@
   ],
   "serviceType": ["Industrial vibration diagnostics","Machinery diagnostic snapshots","Bearing diagnostics","Condition monitoring"]
 }</script>
-<meta content="index,follow,max-image-preview:large" name="robots"/><meta content="https://echoshift.co.uk/assets/img/echoshift-social-preview.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Illustrative industrial rotating machinery — EchoShift" property="og:image:alt"/><meta content="Industrial Vibration Diagnostics West Midlands | EchoShift" name="twitter:title"/><meta content="On-site vibration diagnostics from £125 for motors, pumps, gearboxes and rotating machinery across Birmingham, Coventry and the wider West Midlands." name="twitter:description"/><meta content="https://echoshift.co.uk/assets/img/echoshift-social-preview.jpg" name="twitter:image"/><link href="assets/css/commercial-polish-v0.5.4.css" rel="stylesheet"/></head>
+<meta content="index,follow,max-image-preview:large" name="robots"/><meta content="https://echoshift.co.uk/assets/img/echoshift-social-preview.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Illustrative industrial rotating machinery — EchoShift" property="og:image:alt"/><meta content="Industrial Vibration Diagnostics West Midlands | EchoShift" name="twitter:title"/><meta content="On-site vibration diagnostics from £125 for motors, pumps, gearboxes and rotating machinery across Birmingham, Coventry and the wider West Midlands." name="twitter:description"/><meta content="https://echoshift.co.uk/assets/img/echoshift-social-preview.jpg" name="twitter:image"/><link href="assets/css/commercial-polish-v0.5.4.css" rel="stylesheet"/><link href="assets/css/hero-story-v0.5.5.css" rel="stylesheet"/></head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header" data-site-header="">
@@ -131,6 +131,11 @@
 <span class="disturbance-source disturbance-source--structure"><i></i>Structural transfer</span>
 <span class="disturbance-source disturbance-source--load"><i></i>Changing load</span>
 </div>
+<div aria-hidden="true" class="hero-demo__interference-vectors">
+<span class="interference-vector interference-vector--equipment"></span>
+<span class="interference-vector interference-vector--structure"></span>
+<span class="interference-vector interference-vector--load"></span>
+</div>
 <svg aria-hidden="true" class="hero-demo__floor-wave" preserveaspectratio="none" viewbox="0 0 1000 120">
 <path d="M0 75 C40 75 48 72 76 75 S112 78 138 74 S174 70 202 76 S240 82 268 73 S306 64 334 77 S372 88 400 72 S438 56 466 78 S504 94 532 70 S570 49 598 79 S636 101 664 68 S702 44 730 81 S768 105 796 66 S834 42 862 82 S900 103 928 69 S968 57 1000 74"></path>
 </svg>
@@ -147,10 +152,24 @@
 <div class="hero-demo__shaft-rings"><i></i><i></i><i></i></div>
 <div class="hero-demo__machine-baseline"></div>
 </div>
+<div aria-hidden="true" class="hero-demo__system-map">
+<article class="hero-demo__system-card hero-demo__system-card--machine">
+<span class="hero-demo__system-glyph hero-demo__system-glyph--machine">VIB</span>
+<span><small>Machine vibration</small><strong>Two observation positions</strong></span>
+</article>
+<article class="hero-demo__system-card hero-demo__system-card--reference">
+<span class="hero-demo__system-glyph hero-demo__system-glyph--reference">REF</span>
+<span><small>Environmental reference</small><strong>Separate surrounding context</strong></span>
+</article>
+<article class="hero-demo__system-card hero-demo__system-card--context">
+<span class="hero-demo__system-glyph hero-demo__system-glyph--context">CTX</span>
+<span><small>Operating context</small><strong>Speed · load · machine state</strong></span>
+</article>
+</div>
 <div aria-hidden="true" class="hero-demo__sensor-layer">
-<div class="sensor-point sensor-point--primary"><i></i><span><strong>Primary observation</strong>Drive-end bearing zone</span></div>
-<div class="sensor-point sensor-point--secondary"><i></i><span><strong>Secondary observation</strong>Top-centre / frame-centre</span></div>
-<div class="sensor-point sensor-point--environment"><i></i><span><strong>Environmental reference</strong>Surrounding disturbance context</span></div>
+<div class="sensor-point sensor-point--primary"><i><b>DE</b></i><span><strong>Drive-end measurement node</strong>Bearing-zone vibration</span></div>
+<div class="sensor-point sensor-point--secondary"><i><b>FC</b></i><span><strong>Frame-centre measurement node</strong>Machine-structure response</span></div>
+<div class="sensor-point sensor-point--environment"><i><b>REF</b></i><span><strong>Environmental reference</strong>Surrounding vibration context</span></div>
 </div>
 <div aria-hidden="true" class="hero-demo__filter-flow">
 <span class="filter-flow filter-flow--one"></span>
@@ -208,8 +227,8 @@
 <footer>Trend <i></i> Evidence <i></i> Confidence</footer>
 </article>
 <div aria-hidden="true" class="hero-demo__caption">
-<p data-phase-caption="">Practical condition monitoring built around the machine.</p>
-<span data-phase-subcaption="">18.5 kW squirrel-cage induction motor</span>
+<p data-phase-caption="">Machine vibration, environmental reference and operating context — interpreted together.</p>
+<span data-phase-subcaption="">Illustrative 18.5 kW squirrel-cage induction motor</span>
 </div>
 <ol aria-label="Machine demonstration stages" class="hero-demo__steps">
 <li class="is-active"><button aria-label="Show step 1: What EchoShift is" data-phase-target="1" type="button"><span>1</span></button></li>

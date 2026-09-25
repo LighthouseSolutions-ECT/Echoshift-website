@@ -23,6 +23,7 @@ c8824f913a5ffc0d8fe5e634969c67b813a318524bfd2284df1984d69cbe589c  assets/css/com
 59bbcff854dcafe0495494ae6b6bf34e3f08637ab2d2faf19d650701d98df326  assets/css/copy-visual-v0.4.css
 7dc747747f951ac7b16c43d4edf9e38e9632c0dc71c785b48c2486ecad1e4e71  assets/css/forms-v0.5.0.css
 1165d05bd0ea2750e9139c3ca6f88d116bc18b2d17e7c63ddc09789c9c883217  assets/css/guided-journey.css
+f13a5dd9d076ecc7b48c198474cc8578c62e3de629cd5b1928d923a62389ec9d  assets/css/hero-story-v0.5.5.css
 b28c7302a4a49f2d831f74a2a06c0958f32e688e181c35322de2d32697f68dff  assets/css/hero-v0.4.3.css
 2d67818c2bba25419f29f1b2398c7df4b6ca4816a728270ab1a774df3af6a95c  assets/css/mobile-demo-player-v0.4.6.css
 5bdfa622fb2d1dc81e5577d56138521e1627ffce46b0489d4e3ba2f647bfbfd8  assets/css/mobile-hero-fit-v0.5.1.css
@@ -51,7 +52,7 @@ aa98bb9bf904bd9d663dd4f74e783625d8beb27f5df2088f6e8f0925435b4cba  assets/img/mot
 11db78984a7d55b0e23f4e12cb9160194dd01dad38b7f099d01301f83847866e  assets/img/photography/why-industrial-reality.webp
 9ff24bc4eb80040b152f30d62d499d533686464c57fd2f4f3919b11092b05192  assets/js/forms-v0.5.0.js
 c77b907bb832b0f0f547d42bf9bf08c97f5a8749d1b6905d2f3277abf1a335cd  assets/js/guided-journey.js
-290dafe7831c05e3aff18ee76425e2a64b186029cf53696317470beea7b2bbe3  assets/js/hero-demo-v0.4.3-guided.js
+56dc131d7c2f26052eb9585fa6f64d8a5b6a554d0eb62dcc3ee3868580f683f7  assets/js/hero-demo-v0.4.3-guided.js
 0b72a971af48a5e77977358ea388612f045fc07d42c8690dfe01180d20661245  assets/js/mobile-demo-player-v0.4.6.js
 fd6fc39b3e05775cf3e83874b89321860827427c36c2279291b57eb6e2530744  assets/js/navigation-v0.5.0.js
 b0c2eb528fe4393a385a4b829e6b2647e0e741ad670a3801f6257dfc67bb4fdb  assets/js/site.js
@@ -71,7 +72,7 @@ ca0529d764d231a5508de867ae493a3753610d31e96876acd5b9de592dca28b8  contact/thanks
 ccbda39d573b5ef0cc71af05020cab8c735fbdb8b324a447e332b8cb8dc149b3  favicon-96.png
 c846d93466fca636dfd77534d26f413675fad508d9e552d589b654d742450f50  favicon.ico
 b698f54d99948869c1b1e3f1cbc7770a1bf29b5cff86d18ed0cb25d5082babf2  how-it-works/index.html
-da264c3a4ec196fd596a5adf8cea5c26243b0f003ad42c3a77b7537033699401  index.html
+2887435ba1073ddc2225e3e24e777ae0fe26d2b03dd69ef18166b905f383520d  index.html
 8c8d4d14609a2bee41e9b7f37d3b3cc1ee34233a05ced61d3c5391d353ffb202  privacy/index.html
 9ad6ac1e373e5a027d49e164b8af8b423a3d7f01bc44b417c27cb02540e38ffc  robots.txt
 17794bbafea16610c35d802400f33262d48cd32d006b65ce816f495574a272b6  services/bearing-diagnostics/index.html
