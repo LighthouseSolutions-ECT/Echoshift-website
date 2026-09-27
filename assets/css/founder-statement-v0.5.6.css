@@ -1,0 +1,99 @@
+/* EchoShift About page — approved founder statement presentation.
+   Dedicated file/version to ensure the new section is not hidden by cached legacy CSS. */
+.founder-section {
+  background: #ffffff;
+  border-top: 1px solid #e4e9ef;
+  border-bottom: 1px solid #e4e9ef;
+}
+
+.founder-section .founder-statement {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1.18fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+.founder-section .founder-statement__heading h2 {
+  margin: 0;
+  max-width: 9ch;
+  color: #0a1426;
+  font-size: clamp(2.25rem, 4vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.founder-section .founder-statement__rule {
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 1.4rem;
+  border-radius: 999px;
+  background: #d4a037;
+}
+
+.founder-section .founder-statement__body {
+  max-width: 820px;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  border-left: 2px solid #d4a037;
+}
+
+.founder-section .founder-statement__body p {
+  display: block;
+  margin: 0 0 1.35rem;
+  max-width: 74ch;
+  color: #344054;
+  font-size: clamp(1.02rem, 1.2vw, 1.14rem);
+  line-height: 1.8;
+}
+
+.founder-section .founder-statement__body p:last-of-type {
+  margin-bottom: 0;
+}
+
+.founder-section .founder-statement__signature {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e1e6ec;
+}
+
+.founder-section .founder-statement__signature strong,
+.founder-section .founder-statement__signature span {
+  display: block;
+}
+
+.founder-section .founder-statement__signature strong {
+  color: #0a1426;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.founder-section .founder-statement__signature span {
+  color: #667085;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 800px) {
+  .founder-section .founder-statement {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .founder-section .founder-statement__heading h2 {
+    max-width: none;
+    font-size: clamp(2.25rem, 9vw, 3rem);
+  }
+
+  .founder-section .founder-statement__body {
+    max-width: none;
+    padding-left: 1.25rem;
+    border-left-width: 3px;
+  }
+
+  .founder-section .founder-statement__body p {
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+}
