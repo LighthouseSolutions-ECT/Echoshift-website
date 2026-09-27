@@ -1,0 +1,45 @@
+/* EchoShift About page — approved diagnostic-principle descriptor icons.
+   Narrow visual refinement only: no copy or layout hierarchy changes. */
+.principle-card__icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 0 1.05rem;
+  color: #0a1426;
+}
+
+.principle-card__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.principle-card__icon-main,
+.principle-card__icon-accent,
+.principle-card__icon-divider {
+  fill: none;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.principle-card__icon-main {
+  stroke: #0a1426;
+}
+
+.principle-card__icon-accent {
+  stroke: #d4a037;
+}
+
+.principle-card__icon-divider {
+  stroke: #d4a037;
+  stroke-dasharray: 4 5;
+}
+
+@media (max-width: 620px) {
+  .principle-card__icon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: .9rem;
+  }
+}
