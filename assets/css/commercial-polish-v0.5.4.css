@@ -106,3 +106,69 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .application-card,.service-card { transition: none; }
   .application-card:hover,.service-card:hover { transform: none; }
 }
+
+/* About page — founder statement. Keep the approved copy spacious and editorial, not promotional. */
+.founder-section {
+  border-top: 1px solid #e4e9ef;
+  border-bottom: 1px solid #e4e9ef;
+}
+.founder-statement {
+  display: grid;
+  grid-template-columns: minmax(180px, .42fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 6vw, 5.5rem);
+  align-items: start;
+}
+.founder-statement__heading h2 {
+  max-width: 9ch;
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 3.15rem);
+  line-height: 1.08;
+}
+.founder-statement__rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 1.25rem;
+  border-radius: 999px;
+  background: #d4a037;
+}
+.founder-statement__body {
+  max-width: 780px;
+  padding-left: clamp(1.25rem, 2.8vw, 2.25rem);
+  border-left: 2px solid #d8e0e8;
+}
+.founder-statement__body p {
+  margin: 0;
+  color: #344054;
+  font-size: clamp(1.03rem, 1.25vw, 1.14rem);
+  line-height: 1.78;
+}
+.founder-statement__body p + p {
+  margin-top: 1.35rem;
+}
+.founder-statement__signature {
+  display: grid;
+  gap: .2rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e1e6ec;
+}
+.founder-statement__signature strong {
+  color: #0a1426;
+  font-size: 1rem;
+}
+.founder-statement__signature span {
+  color: #667085;
+  font-size: .9rem;
+}
+@media (max-width: 760px) {
+  .founder-statement {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .founder-statement__heading h2 { max-width: none; }
+  .founder-statement__body {
+    max-width: none;
+    padding-left: 1rem;
+  }
+}

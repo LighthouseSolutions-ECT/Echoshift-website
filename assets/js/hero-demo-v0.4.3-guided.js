@@ -5,11 +5,14 @@ if (demo) {
   const phaseTitle = demo.querySelector('[data-phase-title]');
   const phaseCaption = demo.querySelector('[data-phase-caption]');
   const phaseSubcaption = demo.querySelector('[data-phase-subcaption]');
+  const accessiblePhase = demo.querySelector('[data-phase-accessible]');
   const chapterNumber = demo.querySelector('[data-chapter-number]');
   const chapterTitle = demo.querySelector('[data-chapter-title]');
   const state = demo.querySelector('[data-demo-state]');
   const toggle = demo.querySelector('[data-demo-toggle]');
-  const replay = demo.querySelector('[data-demo-replay]');
+  const replayButtons = demo.querySelectorAll('[data-demo-replay]');
+  const skip = demo.querySelector('[data-demo-skip]');
+  const finalCta = demo.querySelector('[data-demo-final-cta]');
   const phaseButtons = [...demo.querySelectorAll('[data-phase-target]')];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const mobileJourney = window.matchMedia('(max-width: 820px)');
@@ -50,49 +53,48 @@ if (demo) {
   landmarkObserver?.observe(machine);
   window.addEventListener('resize', updateLandmarkGeometry, { passive: true });
 
-  // V0.4.3 preserves the approved V0.4 sequence and the V0.4.2 geometry.
-  // This pass changes only approved customer-facing copy and text hierarchy.
+  // The approved motor sequence and stage durations remain intact.
   const phases = [
     {
       number: '01',
-      title: 'What EchoShift is',
-      caption: 'Machine vibration, environmental reference and operating context — interpreted together.',
-      subcaption: 'Illustrative 18.5 kW squirrel-cage induction motor',
+      title: 'Start with the machine',
+      caption: 'Understand the asset and how it operates.',
+      subcaption: 'Representative motor example',
       duration: 4800,
     },
     {
       number: '02',
-      title: 'Where we listen',
-      caption: 'Two machine measurement nodes observe structural behaviour, with a separate environmental reference.',
-      subcaption: 'DE bearing node · frame-centre node · environmental reference',
+      title: 'Measure where it matters',
+      caption: 'Compare relevant machine locations with surrounding conditions.',
+      subcaption: 'Machine measurements · environmental context',
       duration: 5300,
     },
     {
       number: '03',
-      title: 'The world is noisy',
-      caption: 'Real-world vibration and surrounding activity reach the machine together.',
-      subcaption: 'Adjacent equipment · structural transfer · changing loads',
+      title: 'Put vibration in context',
+      caption: 'Consider nearby equipment, structural vibration and operating load.',
+      subcaption: 'Surrounding equipment · structure · load',
       duration: 7200,
     },
     {
       number: '04',
-      title: 'We keep what matters',
-      caption: 'EchoShift separates surrounding disturbance from retained machine evidence.',
-      subcaption: 'Filtered disturbance · retained machine evidence',
+      title: 'Focus on the useful evidence',
+      caption: 'Review machine evidence alongside its operating context.',
+      subcaption: 'Relevant patterns · surrounding context',
       duration: 6400,
     },
     {
       number: '05',
-      title: 'We find developing conditions',
-      caption: 'Sustained 1× evidence, cross-location agreement and confidence build together.',
-      subcaption: 'Sustained evidence builds before a clear advisory is issued.',
+      title: 'Make the pattern clear',
+      caption: 'Compare consistent findings across the measurements.',
+      subcaption: 'Observations · context · assessment',
       duration: 7600,
     },
     {
       number: '06',
-      title: 'Actionable clarity',
-      caption: 'Clear condition insight. Action with confidence.',
-      subcaption: 'Trend · evidence · confidence',
+      title: 'Plan the next step',
+      caption: 'Finish with the outcome and enquiry choices below.',
+      subcaption: 'Illustrative monitoring example',
       duration: null,
     },
   ];
@@ -110,6 +112,7 @@ if (demo) {
   let visibilitySuspended = false;
   let isJourneyHeld = false;
   let isViewportSuspended = false;
+  let suppressFocusPause = false;
 
   const clearPhaseTimer = () => {
     if (phaseTimer) window.clearTimeout(phaseTimer);
@@ -157,14 +160,14 @@ if (demo) {
     if (phaseSubcaption) phaseSubcaption.textContent = item.subcaption;
     if (chapterNumber) chapterNumber.textContent = item.number;
     if (chapterTitle) chapterTitle.textContent = item.title;
+    if (accessiblePhase) accessiblePhase.textContent = `Step ${Number(item.number)} of ${phases.length}: ${item.title}. ${item.caption}`;
   };
 
   const announcePhase = (item) => {
     demo.classList.remove('is-announcing');
     void demo.offsetWidth;
 
-    // Stay visible until near the end of the stage. The final chapter receives
-    // a calm five-second introduction before settling to the advisory.
+    // Stay visible until near the end of each explanatory stage.
     const chapterDuration = item.duration
       ? Math.max(3600, item.duration - 620)
       : 5200;
@@ -179,6 +182,7 @@ if (demo) {
   const applyVisualPhase = (phase) => {
     const item = phases[phase - 1];
     demo.dataset.phase = String(phase);
+    if (finalCta) finalCta.hidden = phase !== phases.length;
     demo.style.setProperty('--phase-duration', item.duration ? `${item.duration}ms` : '0ms');
     demo.classList.toggle('is-complete', phase === phases.length);
     demo.dispatchEvent(new CustomEvent('echoshift:phasechange', { detail: { phase } }));
@@ -213,7 +217,8 @@ if (demo) {
     demo.classList.add('is-content-refreshing');
     setTextContent(item);
     updateStepButtons(currentPhase);
-    if (announce && !reduceMotion.matches) announcePhase(item);
+    if (announce && !reduceMotion.matches && currentPhase !== phases.length) announcePhase(item);
+    else demo.classList.remove('is-announcing');
 
     const commit = () => {
       applyVisualPhase(currentPhase);
@@ -250,12 +255,14 @@ if (demo) {
     phaseRemaining = phases[currentPhase - 1].duration;
 
     if (manual) {
+      accessiblePhase?.setAttribute('aria-live', 'polite');
       isJourneyHeld = false;
       isViewportSuspended = false;
       visibilitySuspended = false;
       demo.classList.remove('is-journey-held', 'is-viewport-suspended');
       isPaused = true;
       demo.classList.add('is-paused');
+      demo.classList.remove('is-interaction-paused');
       if (state) state.textContent = hasCompleted ? 'Final state selected' : 'Stage selected';
     } else {
       isPaused = false;
@@ -266,18 +273,37 @@ if (demo) {
     updateToggle();
   };
 
-  const restart = () => {
+  const restart = (event) => {
+    if (reduceMotion.matches) {
+      setPhase(1, { manual: true, immediate: true });
+      if (event?.currentTarget?.classList.contains('hero-demo__final-replay')) {
+        suppressFocusPause = true;
+        phaseButtons[0]?.focus({ preventScroll: true });
+        suppressFocusPause = false;
+      }
+      return;
+    }
     clearPhaseTimer();
+    accessiblePhase?.setAttribute('aria-live', 'off');
     clearTransientTimers();
     isPaused = false;
     hasCompleted = false;
     visibilitySuspended = false;
     isJourneyHeld = false;
     isViewportSuspended = false;
-    demo.classList.remove('is-paused', 'is-journey-held', 'is-viewport-suspended', 'is-complete', 'is-announcing', 'is-content-refreshing');
+    demo.classList.remove('is-paused', 'is-interaction-paused', 'is-journey-held', 'is-viewport-suspended', 'is-complete', 'is-announcing', 'is-content-refreshing');
     demo.dataset.phase = '0';
+    if (finalCta) finalCta.hidden = true;
     if (state) state.textContent = 'Demonstration running';
     updateToggle();
+
+    // The final Replay control disappears on restart. Retain visible keyboard
+    // focus without treating this internal move as an unsolicited new pause.
+    if (event?.currentTarget?.classList.contains('hero-demo__final-replay')) {
+      suppressFocusPause = true;
+      phaseButtons[0]?.focus({ preventScroll: true });
+      suppressFocusPause = false;
+    }
 
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => startPhase(1));
@@ -294,7 +320,7 @@ if (demo) {
     isViewportSuspended = false;
     visibilitySuspended = true;
     phaseRemaining = phases[0].duration;
-    demo.classList.remove('is-complete', 'is-announcing', 'is-content-refreshing');
+    demo.classList.remove('is-complete', 'is-announcing', 'is-content-refreshing', 'is-interaction-paused');
     demo.classList.add('is-paused', 'is-journey-held');
     startPhase(1, { immediate: true, announce: false });
     if (state) state.textContent = 'Ready to begin';
@@ -347,6 +373,7 @@ if (demo) {
 
     isPaused = !isPaused;
     demo.classList.toggle('is-paused', isPaused);
+    demo.classList.toggle('is-interaction-paused', isPaused);
     if (state) state.textContent = isPaused ? 'Demonstration paused' : 'Demonstration running';
     updateToggle();
 
@@ -354,7 +381,22 @@ if (demo) {
     else scheduleNext(phaseRemaining);
   });
 
-  replay?.addEventListener('click', restart);
+  replayButtons.forEach((button) => button.addEventListener('click', restart));
+  skip?.addEventListener('click', () => {
+    setPhase(phases.length, { manual: true, immediate: true });
+    finalCta?.querySelector('a')?.focus({ preventScroll: true });
+  });
+
+  const pauseForInteraction = () => {
+    if (suppressFocusPause || isPaused || hasCompleted || isJourneyHeld || reduceMotion.matches) return;
+    pauseTimeline();
+    isPaused = true;
+    demo.classList.add('is-paused', 'is-interaction-paused');
+    if (state) state.textContent = 'Demonstration paused';
+    updateToggle();
+  };
+  demo.addEventListener('focusin', pauseForInteraction);
+  demo.addEventListener('pointerenter', pauseForInteraction);
 
   phaseButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -363,13 +405,7 @@ if (demo) {
   });
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden && !hasCompleted && !isPaused && !isJourneyHeld) {
-      visibilitySuspended = true;
-      pauseTimeline();
-    } else if (!document.hidden && visibilitySuspended && !isPaused && !hasCompleted && !isJourneyHeld && !isViewportSuspended) {
-      visibilitySuspended = false;
-      scheduleNext(phaseRemaining);
-    }
+    if (document.hidden && !hasCompleted && !isPaused && !isJourneyHeld) pauseForInteraction();
   });
 
   const applyMotionPreference = () => {
@@ -378,12 +414,24 @@ if (demo) {
       clearTransientTimers();
       isPaused = true;
       hasCompleted = true;
+      demo.classList.remove('is-interaction-paused');
       demo.classList.add('is-paused', 'is-complete');
       currentPhase = 6;
       setTextContent(phases[5]);
       applyVisualPhase(6);
       updateStepButtons(6);
       if (state) state.textContent = 'Static final state';
+      updateToggle();
+      return;
+    }
+
+    // A preference change must not restart a completed journey.
+    if (hasCompleted) {
+      isPaused = true;
+      demo.classList.remove('is-interaction-paused');
+      demo.classList.add('is-paused', 'is-complete');
+      startPhase(6, { immediate: true, announce: false });
+      if (state) state.textContent = 'Demonstration complete';
       updateToggle();
       return;
     }
@@ -401,7 +449,7 @@ if (demo) {
   };
 
   const handleJourneyBreakpoint = () => {
-    if (reduceMotion.matches) return;
+    if (reduceMotion.matches || hasCompleted) return;
     const requestedStage = Number(new URLSearchParams(window.location.search).get('demoStage'));
     if (Number.isInteger(requestedStage) && requestedStage >= 1 && requestedStage <= phases.length) return;
 

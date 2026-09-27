@@ -21,12 +21,12 @@ if (demo && demoColumn && heroCopy && heroActions && mini) {
   const originalParent = demoColumn.parentNode;
   const originalNextSibling = demoColumn.nextSibling;
   const phaseTitles = [
-    'What EchoShift is',
-    'Where we listen',
-    'The world is noisy',
-    'We keep what matters',
-    'We find developing conditions',
-    'Actionable clarity',
+    'Start with the machine',
+    'Measure where it matters',
+    'Put vibration in context',
+    'Focus on the useful evidence',
+    'Make the pattern clear',
+    'Plan the next step',
   ];
 
   let isMinimised = false;

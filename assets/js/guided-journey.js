@@ -152,7 +152,7 @@ const bindHeroApi = (api) => {
 
 // Any direct interaction with the demonstration is intentional. Mark it as
 // started so the mobile intersection observer never resets a selected stage.
-demo?.querySelectorAll('[data-phase-target], [data-demo-toggle], [data-demo-replay]').forEach((control) => {
+demo?.querySelectorAll('[data-phase-target], [data-demo-toggle], [data-demo-replay], [data-demo-skip]').forEach((control) => {
   control.addEventListener('click', () => {
     window.setTimeout(() => {
       if (!heroApi?.getState().isJourneyHeld) demoHasStarted = true;
