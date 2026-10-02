@@ -1,0 +1,9 @@
+/* Additive UK hubs and the provider application; no changes to legacy layout rules. */
+.region-page .uk-details > * { min-width: 0; }
+.region-page .uk-details p + p { margin-top: 1rem; }
+.region-page .region-prompts { margin-top: 1rem; }
+.region-page .uk-mist .region-prompts li { color: #46566a; }
+.region-text-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: .9rem; color: #e0ad45; text-underline-offset: .22em; }
+.region-page .uk-price-note p { color: #c7d2df; }
+.uk-region-grid h3 a { margin-top: 0; }
+.uk-region-grid p { font-size: .95rem; }

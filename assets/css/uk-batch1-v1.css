@@ -1,0 +1,69 @@
+/* Static national enquiry page. Existing technical/local pages own their intent. */
+.uk-page { --uk-rule: #d8e0e8; }
+.uk-page h1 { max-width: 19ch; font-size: clamp(2.35rem, 4.7vw, 4.3rem); line-height: 1.08; }
+.uk-page h2 { max-width: 27ch; font-size: clamp(1.85rem, 3vw, 2.8rem); line-height: 1.15; }
+.uk-page h3 { line-height: 1.25; }
+.uk-hero { padding: 8.5rem 0 4rem; background: radial-gradient(ellipse at top right, #1c3554, transparent 65%); }
+.uk-hero .breadcrumbs { margin-bottom: 2rem; }
+.uk-hero__layout { display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.uk-hero__lede { max-width: 58ch; margin-top: 1.5rem; font-size: 1.15rem; color: #c7d2df; }
+.uk-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; }
+.uk-call-note { margin-top: .85rem; color: #c7d2df; font-size: .9rem; }
+.uk-intro-card { padding: 1.75rem; border: 1px solid #53677f; border-top: 3px solid #d4a037; border-radius: 16px; background: #0a1426; }
+.uk-intro-card h2 { font-size: 1.4rem; }
+.uk-intro-card p { margin-top: 1rem; color: #c7d2df; }
+.uk-intro-card a { display: inline-flex; align-items: center; min-height: 44px; margin-top: .8rem; color: #e0ad45; text-underline-offset: .25em; }
+.uk-section { padding: clamp(2.7rem, 5vw, 4.5rem) 0; }
+.uk-section__intro { max-width: 72ch; margin-top: 1rem; }
+.uk-light { color: #101828; background: #fff; }
+.uk-mist { color: #101828; background: #f4f6f8; }
+.uk-light p, .uk-mist p { color: #46566a; }
+.uk-help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 2rem; }
+.uk-help-grid h3 { font-size: 1.2rem; }
+.uk-link-list { display: grid; list-style: none; margin-top: 1rem; }
+.uk-link-list a { display: flex; justify-content: space-between; gap: 1rem; align-items: center; min-height: 48px; padding: .75rem 0; border-bottom: 1px solid var(--uk-rule); color: #27446b; text-decoration: none; font-weight: 600; }
+.uk-link-list a::after { content: '\2192'; color: #667085; }
+.uk-link-list a:hover { text-decoration: underline; text-underline-offset: .25em; }
+.uk-link-list small { display: block; margin-top: .3rem; font-size: .87rem; font-weight: 400; color: #46566a; }
+.uk-help-grid .uk-link-list p { margin-top: 0; }
+.uk-steps { list-style: none; counter-reset: enquiry; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.uk-steps li { counter-increment: enquiry; padding: 1.5rem; background: #fff; border: 1px solid var(--uk-rule); border-radius: 14px; }
+.uk-steps li::before { content: '0' counter(enquiry); display: block; color: #765212; font: 500 .85rem var(--font-mono); margin-bottom: 1rem; }
+.uk-steps h3 { font-size: 1.15rem; }
+.uk-steps p { margin-top: .8rem; }
+.uk-permission { margin-top: 1.5rem; padding-left: 1.25rem; border-left: 3px solid #d4a037; max-width: 90ch; }
+.uk-details { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem; align-items: start; }
+.uk-details p { margin-top: 1rem; }
+.uk-details ul { padding-left: 1.25rem; }
+.uk-details li { padding: .5rem 0; color: #c7d2df; }
+.uk-coverage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.uk-coverage article { padding: 1.5rem; border: 1px solid var(--uk-rule); border-radius: 14px; }
+.uk-coverage h3 { font-size: 1.2rem; }
+.uk-coverage p { margin-top: .85rem; }
+.uk-coverage ul { margin-top: 1rem; padding-left: 1.1rem; color: #46566a; }
+.uk-coverage li { padding-block: .2rem; }
+.uk-coverage a { display: inline-flex; align-items: center; min-height: 44px; margin-top: .6rem; color: #27446b; text-underline-offset: .2em; }
+.uk-price-note { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--uk-rule); max-width: 85ch; }
+.uk-price-note h3 { font-size: 1.1rem; }
+.uk-price-note p { margin-top: .7rem; }
+.uk-next { border-top: 1px solid #46566a; }
+.uk-next p { max-width: 78ch; margin-top: 1rem; color: #c7d2df; }
+.uk-next .uk-privacy-link { display: inline-flex; min-height: 44px; align-items: center; color: #fff; text-underline-offset: .2em; }
+.uk-page [id] { scroll-margin-top: 100px; }
+@media (max-width: 900px) {
+  .uk-hero__layout, .uk-details { grid-template-columns: 1fr; }
+  .uk-steps, .uk-coverage { grid-template-columns: 1fr; }
+  .uk-hero { padding-top: 7rem; }
+}
+@media (max-width: 620px) {
+  .uk-help-grid { grid-template-columns: 1fr; }
+  .uk-actions { flex-direction: column; align-items: stretch; }
+  .uk-actions .button { text-align: center; }
+  .uk-intro-card { padding: 1.25rem; }
+}
+
+/* Batch 1 has two established/expansion coverage destinations. */
+.uk-region-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.uk-page .call-action { gap: .35rem; flex-wrap: wrap; justify-content: center; }
+.uk-page .call-action__number { white-space: nowrap; }
+@media (max-width: 900px) { .uk-region-grid { grid-template-columns: 1fr; } }
