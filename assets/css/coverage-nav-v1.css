@@ -1,0 +1,26 @@
+/* Coverage disclosure uses the versioned navigation disclosure script.
+   Existing asset URLs and bytes remain unchanged for mixed-cache safety. */
+.coverage-dropdown { display: none; left: auto; right: 0; width: min(680px, calc(100vw - 32px)); min-width: 0; max-height: 72vh; overflow-y: auto; visibility: visible; opacity: 1; transform: none; transition: none; }
+.coverage-group.is-open .coverage-dropdown { display: grid; }
+.coverage-dropdown .coverage-national { color: #f0c967; border-bottom: 1px solid rgba(255,255,255,.14); border-radius: 0; margin-bottom: .4rem; }
+.coverage-columns { display: grid; grid-template-columns: 1fr 1.2fr; gap: .65rem; }
+.coverage-columns > div { min-width: 0; }
+.coverage-dropdown .coverage-heading { display: block; padding: .75rem .8rem; color: #f0c967; font-weight: 700; line-height: 1.25; }
+.coverage-dropdown ul { list-style: none; margin: 0; padding: 0; }
+.coverage-dropdown li a { min-height: 44px; font-size: .9rem; }
+.coverage-dropdown a:focus-visible { outline: 2px solid #f0c967; outline-offset: -2px; }
+/* Extend the existing two-row tablet header just far enough for the disclosure. */
+@media (min-width: 981px) and (max-width: 1360px) {
+  .site-header .header-layout { display: grid; grid-template-columns: 1fr auto; gap: 0; padding-block: 4px; }
+  .site-header .site-logo-link { grid-column: 1; grid-row: 1; justify-self: start; }
+  .header-call { grid-column: 2; grid-row: 1; }
+  .site-header .primary-navigation { grid-column: 1 / -1; grid-row: 2; justify-content: space-between; }
+}
+@media (max-width: 980px) {
+  .site-header .primary-navigation { scroll-padding-block: 6rem 2rem; }
+  .coverage-dropdown { width: 100%; max-height: none; overflow: visible; }
+  .coverage-dropdown a { scroll-margin-block: .5rem; }
+  .coverage-columns { grid-template-columns: 1fr; gap: .3rem; }
+  .coverage-dropdown .coverage-heading { padding-block: .85rem; }
+  .coverage-dropdown li a { padding-left: 1.4rem; }
+}

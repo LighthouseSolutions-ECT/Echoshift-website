@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://echoshift.co.uk/about/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
     <loc>https://echoshift.co.uk/applications/compressors/</loc>
@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>https://echoshift.co.uk/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
     <loc>https://echoshift.co.uk/privacy/</loc>
@@ -98,10 +98,30 @@
   </url>
   <url>
     <loc>https://echoshift.co.uk/uk/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
     <loc>https://echoshift.co.uk/uk/north-west/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://echoshift.co.uk/uk/north-west/manchester-greater-manchester/</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://echoshift.co.uk/uk/north-west/liverpool-merseyside/</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://echoshift.co.uk/uk/north-west/cheshire-warrington/</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://echoshift.co.uk/uk/north-west/lancashire/</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://echoshift.co.uk/uk/north-west/cumbria/</loc>
+    <lastmod>2026-10-03</lastmod>
   </url>
 </urlset>

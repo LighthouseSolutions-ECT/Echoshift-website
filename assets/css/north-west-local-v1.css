@@ -1,0 +1,16 @@
+/* Local landing page additions only; current site typography and branding reused. */
+.local-page .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; }
+.local-page .uk-hero h1 { max-width: 23ch; font-size: clamp(2.2rem, 4vw, 3.7rem); }
+.local-page .local-intro { max-width: 850px; }
+.local-page .local-intro p { margin-top: 1rem; }
+.local-page .local-task-title { margin-top: 2.5rem; font-size: clamp(1.5rem, 2.5vw, 2.1rem); max-width: 35ch; }
+.local-page .local-sources { margin-top: .9rem; font-size: .88rem; }
+.local-page .local-sources summary { cursor: pointer; width: fit-content; padding-block: .65rem; }
+.local-page .local-sources p { margin: 0 0 .75rem; }
+.local-page .uk-light a, .local-page .uk-mist a { color: #27446b; text-underline-offset: .2em; }
+.local-page .uk-price-note { margin-top: 0; }
+.local-page .local-outcome { margin-top: 1.5rem; }
+.local-page .uk-next a:not(.button) { text-underline-offset: .25em; }
+.local-page .uk-coverage article { display: flex; flex-direction: column; }
+.local-page .uk-coverage article > a { margin-top: auto; padding-top: 1rem; }
+.local-page .uk-coverage article > p { margin-bottom: .4rem; }
