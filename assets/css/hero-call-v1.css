@@ -1,0 +1,4 @@
+/* C37 only: approved homepage telephone control. */
+.hero__phone--primary a.button { display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .3em; max-width: 100%; padding: .8rem 1rem; color: #0a1426; font-size: .95rem; font-weight: 700; text-decoration: none; }
+.hero__phone--primary .hero__phone-number { white-space: nowrap; }
+.hero__phone--primary .hero__phone-note { display: block; margin-top: .45rem; color: #c7d2df; font-size: .85rem; line-height: 1.5; }

@@ -1,0 +1,18 @@
+/* New regional hubs only. Existing page and navigation rules remain unchanged. */
+.uk-national-hub .regional-content { max-width: 78ch; margin-inline: auto; }
+.uk-national-hub .regional-content h2 { max-width: none; }
+.uk-national-hub .regional-copy p { margin-top: 1rem; }
+.uk-national-hub .regional-copy h3 { margin-top: 2rem; font-size: 1.2rem; }
+.uk-national-hub .regional-copy ul { margin-top: 1rem; padding-left: 1.3rem; }
+.uk-national-hub .regional-copy li { padding-block: .35rem; }
+.uk-national-hub .regional-copy a:not(.button) { color: #27446b; text-decoration: underline; text-underline-offset: .2em; }
+.uk-national-hub .uk-next a:not(.button) { color: #f0c967; }
+.uk-national-hub .regional-navigation ul { list-style: none; padding: 0; margin-top: .75rem; }
+.uk-national-hub .regional-navigation a { margin: 0; padding-block: .35rem; font-size: .95rem; }
+.uk-national-hub .regional-navigation p { margin: 0; }
+.uk-national-hub .regional-hero-text { margin-top: 1rem; max-width: 62ch; color: #c7d2df; }
+.uk-national-hub .uk-actions .call-action { gap: .3em; }
+.uk-national-hub .regional-copy .uk-actions { margin-top: 1.5rem; }
+.uk-national-hub .regional-copy .uk-call-note { font-size: .9rem; }
+.uk-national-hub .regional-copy > p:last-child > a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 620px) { .uk-national-hub .regional-navigation { padding: 1.25rem; } }
